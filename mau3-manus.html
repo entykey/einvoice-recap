@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyInvoice Year in Review 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            background: #f8f9fa;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Particle Canvas */
+        .particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Content Layer */
+        .slide-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Floating SVG Icons */
+        .floating-icon {
+            position: absolute;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .floating-icon.float-1 {
+            animation: float1 6s ease-in-out infinite;
+        }
+
+        .floating-icon.float-2 {
+            animation: float2 8s ease-in-out infinite;
+        }
+
+        .floating-icon.float-3 {
+            animation: float3 7s ease-in-out infinite;
+        }
+
+        .floating-icon.float-4 {
+            animation: float4 9s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -30px) rotate(5deg); }
+            50% { transform: translate(-10px, -50px) rotate(-3deg); }
+            75% { transform: translate(15px, -25px) rotate(4deg); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-25px, -40px) rotate(-6deg); }
+            66% { transform: translate(20px, -60px) rotate(5deg); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-15px, -45px) rotate(8deg); }
+        }
+
+        @keyframes float4 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -20px) rotate(-4deg); }
+            50% { transform: translate(-20px, -55px) rotate(6deg); }
+            75% { transform: translate(25px, -35px) rotate(-5deg); }
+        }
+
+        /* Logo Container */
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo-box {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-weight: 700;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Solid Color Backgrounds */
+        .slide-1 { background: #667eea; color: white; }
+        .slide-2 { background: #f093fb; color: white; }
+        .slide-3 { background: #4facfe; color: white; }
+        .slide-4 { background: #43e97b; color: white; }
+        .slide-5 { background: #fa709a; color: white; }
+        .slide-6 { background: #30cfd0; color: white; }
+        .slide-7 { background: #a8edea; color: #333; }
+        .slide-8 { background: #ff9a9e; color: #333; }
+        .slide-9 { background: #ffecd2; color: #333; }
+        .slide-10 { background: #ff6e7f; color: white; }
+
+        /* Typography */
+        .slide-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 40px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease 0.2s;
+        }
+
+        .slide.active .slide-title,
+        .slide.active .slide-subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Big Number Display */
+        .big-number {
+            font-size: 6rem;
+            font-weight: 800;
+            margin: 30px 0;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s ease 0.4s;
+        }
+
+        .slide.active .big-number {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .number-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            width: 100%;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .slide.active .stat-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide.active .stat-card:nth-child(1) { transition-delay: 0.2s; }
+        .slide.active .stat-card:nth-child(2) { transition-delay: 0.4s; }
+        .slide.active .stat-card:nth-child(3) { transition-delay: 0.6s; }
+        .slide.active .stat-card:nth-child(4) { transition-delay: 0.8s; }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Top List */
+        .top-list {
+            max-width: 700px;
+            width: 100%;
+            margin: 30px 0;
+        }
+
+        .top-item {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px 30px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.5s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .slide.active .top-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide.active .top-item:nth-child(1) { transition-delay: 0.2s; }
+        .slide.active .top-item:nth-child(2) { transition-delay: 0.3s; }
+        .slide.active .top-item:nth-child(3) { transition-delay: 0.4s; }
+        .slide.active .top-item:nth-child(4) { transition-delay: 0.5s; }
+        .slide.active .top-item:nth-child(5) { transition-delay: 0.6s; }
+        .slide.active .top-item:nth-child(6) { transition-delay: 0.7s; }
+        .slide.active .top-item:nth-child(7) { transition-delay: 0.8s; }
+        .slide.active .top-item:nth-child(8) { transition-delay: 0.9s; }
+        .slide.active .top-item:nth-child(9) { transition-delay: 1.0s; }
+        .slide.active .top-item:nth-child(10) { transition-delay: 1.1s; }
+
+        .top-rank {
+            font-size: 2rem;
+            font-weight: 800;
+            min-width: 50px;
+        }
+
+        .top-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .top-info {
+            flex: 1;
+        }
+
+        .top-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .top-value {
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        /* Badge */
+        .badge-container {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px 60px;
+            text-align: center;
+            max-width: 600px;
+            opacity: 0;
+            transform: scale(0.8) rotate(-5deg);
+            transition: all 0.8s ease 0.4s;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .slide.active .badge-container {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .badge-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .badge-text {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* Story Box */
+        .story-box {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease 0.4s;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .slide.active .story-box {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .story-text {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .tips-list {
+            text-align: left;
+            font-size: 1.2rem;
+            line-height: 2;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            position: fixed;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .progress-dot.active {
+            background: white;
+            transform: scale(1.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide-title { font-size: 2.5rem; }
+            .slide-subtitle { font-size: 1.2rem; }
+            .big-number { font-size: 4rem; }
+            .stat-number { font-size: 2rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .logo-box { width: 40px; height: 40px; font-size: 10px; }
+            .nav-btn { padding: 12px 30px; font-size: 0.9rem; }
+            .story-text { font-size: 1.3rem; }
+            .badge-text { font-size: 1.5rem; }
+            .floating-icon { opacity: 0.08; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Cover -->
+    <div class="slide slide-1 active" id="slide-1">
+        <canvas class="particles-canvas" data-slide="1"></canvas>
+        <svg class="floating-icon float-1" width="120" height="120" viewBox="0 0 100 100" style="top: 10%; left: 10%;">
+            <rect x="20" y="30" width="60" height="50" fill="white" rx="5"/>
+            <line x1="30" y1="45" x2="70" y2="45" stroke="#667eea" stroke-width="3"/>
+            <line x1="30" y1="55" x2="70" y2="55" stroke="#667eea" stroke-width="3"/>
+            <line x1="30" y1="65" x2="55" y2="65" stroke="#667eea" stroke-width="3"/>
+        </svg>
+        <svg class="floating-icon float-2" width="100" height="100" viewBox="0 0 100 100" style="top: 60%; right: 15%;">
+            <circle cx="50" cy="50" r="35" fill="white"/>
+            <text x="50" y="60" font-size="40" text-anchor="middle" fill="#667eea">$</text>
+        </svg>
+        <svg class="floating-icon float-3" width="110" height="110" viewBox="0 0 100 100" style="bottom: 15%; left: 15%;">
+            <rect x="15" y="60" width="15" height="25" fill="white"/>
+            <rect x="35" y="45" width="15" height="40" fill="white"/>
+            <rect x="55" y="30" width="15" height="55" fill="white"/>
+            <polyline points="20,60 42,45 62,30" stroke="white" stroke-width="3" fill="none"/>
+        </svg>
+        
+        <div class="logo-container">
+            <div class="logo-box">LOGO 1</div>
+            <div class="logo-box">LOGO 2</div>
+        </div>
+        <div class="slide-content">
+            <div style="font-size: 5rem; margin-bottom: 30px;">📊</div>
+            <h1 class="slide-title">EasyInvoice</h1>
+            <h2 class="slide-subtitle">Year in Review 2025</h2>
+            <p style="font-size: 1.3rem; opacity: 0.9;">Recap của doanh nghiệp bạn!</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Tổng hóa đơn -->
+    <div class="slide slide-2" id="slide-2">
+        <canvas class="particles-canvas" data-slide="2"></canvas>
+        <svg class="floating-icon float-1" width="130" height="130" viewBox="0 0 100 100" style="top: 15%; right: 10%;">
+            <rect x="25" y="20" width="50" height="65" fill="white" rx="3"/>
+            <line x1="32" y1="32" x2="68" y2="32" stroke="#f093fb" stroke-width="2"/>
+            <line x1="32" y1="42" x2="68" y2="42" stroke="#f093fb" stroke-width="2"/>
+            <line x1="32" y1="52" x2="68" y2="52" stroke="#f093fb" stroke-width="2"/>
+            <line x1="32" y1="62" x2="55" y2="62" stroke="#f093fb" stroke-width="2"/>
+        </svg>
+        <svg class="floating-icon float-3" width="100" height="100" viewBox="0 0 100 100" style="bottom: 20%; left: 12%;">
+            <rect x="30" y="25" width="40" height="50" fill="white" rx="5"/>
+            <circle cx="50" cy="45" r="8" fill="#f093fb"/>
+            <path d="M 50 53 L 50 65" stroke="#f093fb" stroke-width="3"/>
+            <path d="M 50 65 L 42 75" stroke="#f093fb" stroke-width="3"/>
+            <path d="M 50 65 L 58 75" stroke="#f093fb" stroke-width="3"/>
+        </svg>
+        
+        <div class="logo-container">
+            <div class="logo-box">LOGO 1</div>
+            <div class="logo-box">LOGO 2</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Tổng hóa đơn phát hành</h2>
+            <div class="big-number" data-count="2548">0</div>
+            <p class="number-label">hóa đơn trong năm 2025</p>
+            <div style="margin-top: 40px; font-size: 4rem;">🧾</div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Giá trị giao dịch -->
+    <div class="slide slide-3" id="slide-3">
+        <canvas class="particles-canvas" data-slide="3"></canvas>
+        <svg class="floating-icon float-2" width="140" height="140" viewBox="0 0 100 100" style="top: 12%; left: 8%;">
+            <circle cx="50" cy="45" r="30" fill="white"/>
+            <text x="50" y="55" font-size="35" text-anchor="middle" fill="#4facfe" font-weight="bold">₫</text>
+        </svg>
+        <svg class="floating-icon float-4" width="120" height="120" viewBox="0 0 100 100" style="bottom: 18%; right: 10%;">
+            <rect x="20" y="25" width="60" height="50" fill="white" rx="5"/>
+            <rect x="30" y="35" width="15" height="8" fill="#4facfe"/>
+            <rect x="30" y="48" width="15" height="8" fill="#4facfe"/>
+            <rect x="30" y="61" width="15" height="8" fill="#4facfe"/>
+            <line x1="50" y1="39" x2="65" y2="39" stroke="#4facfe" stroke-width="2"/>
+            <line x1="50" y1="52" x2="65" y2="52" stroke="#4facfe" stroke-width="2"/>
+            <line x1="50" y1="65" x2="65" y2="65" stroke="#4facfe" stroke-width="2"/>
+        </svg>
+        
+        <div class="logo-container">
+            <div class="logo-box">LOGO 1</div>
+            <div class="logo-box">LOGO 2</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Giá trị giao dịch</h2>
+            <div class="big-number" data-count="45600000000" data-suffix=" VNĐ">0</div>
+            <p class="number-label">Tổng giá trị hóa đơn</p>
+            <div style="margin-top: 40px; font-size: 4rem;">💰</div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Hóa đơn phát hành/nhận -->
+    <div class="slide slide-4" id="slide-4">
+        <canvas class="particles-canvas" data-slide="4"></canvas>
+        <svg class="floating-icon float-1" width="110" height="110" viewBox="0 0 100 100" style="top: 8%; right: 12%;">
+            <path d="M 30 70 L 30 40 L 50 25 L 70 40 L 70 70 Z" fill="white"/>
+            <rect x="42" y="55" width="16" height="15" fill="#43e97b"/>
+        </svg>
+        <svg class="floating-icon float-3" width="100" height="100" viewBox="0 0 100 100" style="bottom: 12%; left: 10%;">
+            <rect x="25" y="35" width="50" height="35" fill="white" rx="3"/>
+            <circle cx="50" cy="52" r="10" fill="#43e97b"/>
+            <path d="M 45 52 L 48 55 L 55 48" stroke="white" stroke-width="2" fill="none"/>
+        </svg>
+        
+        <div class="logo-container">
+            <div class="logo-box">LOGO 1</div>
+            <div class="logo-box">LOGO 2</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Chi tiết hoạt động</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" data-count="2548">0</div>
+                    <div class="stat-label">Hóa đơn phát hành</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-count="1876">0</div>
+                    <div class="stat-label">Hóa đơn nhận</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-count="42">0</div>
+                    <div class="stat-label">Hóa đơn từ chối</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-count="8">0</div>
+                    <div class="stat-label">Loại hóa đơn</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Tháng bận rộn nhất -->
+    <div class="slide slide-5" id="slide-5">
+        <canvas class="particles-canvas" data-slide="5"></canvas>
+        <svg class="floating-icon float-2" width="120" height="120" viewBox="0 0 100 100" style="top: 15%; left: 10%;">
+            <rect x="25" y="30" width="50" height="50" fill="white" rx="5"/>
+            <line x1="25" y1="40" x2="75" y2="40" stroke="#fa709a" stroke-width="2"/>
+            <circle cx="35" cy="52" r="3" fill="#fa709a"/>
+            <circle cx="50" cy="52" r="3" fill="#fa709a"/>
+            <circle cx="65" cy="52" r="3" fill="#fa709a"/>
+            <circle cx="35" cy="65" r="3" fill="#fa709a"/>
+            <circle cx="50" cy="65" r="3" fill="#fa709a"/>
+        </svg>
+        <svg class="floating-icon float-4" width="110" height="110" viewBox="0 0 100 100" style="bottom: 15%; right: 12%;">
+            <polygon points="50,20 61,45 88,45 66,61 75,88 50,70 25,88 34,61 12,45 39,45" fill="white"/>
+        </svg>
+        
+        <div class="logo-container">
+            <div class="logo-box">LOGO 1</div>
+            <div class="logo-box">LOGO 2</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Tháng bận rộn nhất</h2>
+            <div class="big-number">Tháng 12</div>
+            <p class="number-label">với <span data-count="387" style="font-weight: 800; font-size: 1.5rem;">0</span> hóa đơn</p>
+            <div style="margin-top: 40px; font-size: 4rem;">🔥</div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Tăng trưởng -->
+    <div class="slide slide-6" id="slide-6">
+        <canvas class="particles-canvas" data-slide="6"></canvas>
+        <svg class="floating-icon float-1" width="130" height="130" viewBox="0 0 100 100" style="top: 10%; right: 10%;">
+            <rect x="20" y="70" width="12" height="15" fill="white"/>
+            <rect x="35" y="55" width="12" height="30" fill="white"/>
+            <rect x="50" y="40" width="12" height="45" fill="white"/>
+            <rect x="65" y="25" width="12" height="60" fill="white"/>
+            <polyline points="26,70 41,55 56,40 71,25" stroke="white" stroke-width="4" fill="none"/>
+            <polygon points="71,25 65,25 71,31" fill="white"/>
+        </svg>
+        <svg class="floating-icon float-3" width="100" height="100" viewBox="0 0 100 100" style="bottom: 18%; left: 12%;">
+            <circle cx="50" cy="50" r="30" fill="white"/>
+            <path d="M 50 35 L 50 65 M 35 50 L 50 35 M 65 50 L 50 35" stroke="#30cfd0" stroke-width="4"/>
+        </svg>
+        
+        <div class="logo-container">
+            <div class="logo-box">LOGO 1</div>
+            <div class="logo-box">LOGO 2</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Tăng trưởng 2024 → 2025</h2>
+            <div class="big-number" data-count="32" data-suffix="%">0</div>
+            <p class="number-label">Tăng trưởng số lượng hóa đơn</p>
+            <div style="margin-top: 40px; font-size: 4rem;">📈</div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Top khách hàng -->
+    <div class="slide slide-7" id="slide-7">
+        <canvas class="particles-canvas" data-slide="7"></canvas>
+        <svg class="floating-icon float-2" width="120" height="120" viewBox="0 0 100 100" style="top: 12%; left: 8%;">
+            <rect x="25" y="40" width="50" height="40" fill="#333" rx="3"/>
+            <rect x="30" y="30" width="40" height="8" fill="#333"/>
+            <circle cx="45" cy="60" r="5" fill="white"/>
+            <circle cx="55" cy="60" r="5" fill="white"/>
+            <path d="M 40 70 Q 50 75 60 70" stroke="white" stroke-width="2" fill="none"/>
+        </svg>
+        <svg class="floating-icon float-4" width="110" height="110" viewBox="0 0 100 100" style="bottom: 15%; right: 10%;">
+            <polygon points="50,25 61,45 83,48 66,64 70,86 50,75 30,86 34,64 17,48 39,45" fill="#333"/>
+        </svg>
+        
+        <div class="logo-container">
+            <div class="logo-box">LOGO 1</div>
+            <div class="logo-box">LOGO 2</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Top 10 Khách hàng</h2>
+            <div class="top-list">
+                <div class="top-item">
+                    <div class="top-rank">#1</div>
+                    <div class="top-avatar">🏢</div>
+                    <div class="top-info">
+                        <div class="top-name">Công ty ABC</div>
+                    </div>
+                    <div class="top-value">245 HĐ</div>
+                </div>
+                <div class="top-item">
+                    <div class="top-rank">#2</div>
+                    <div class="top-avatar">🏪</div>
+                    <div class="top-info">
+                        <div class="top-name">Cửa hàng XYZ</div>
+                    </div>
+                    <div class="top-value">198 HĐ</div>
+                </div>
+                <div class="top-item">
+                    <div class="top-rank">#3</div>
+                    <div class="top-avatar">🏭</div>
+                    <div class="top-info">
+                        <div class="top-name">Nhà máy DEF</div>
+                    </div>
+                    <div class="top-value">176 HĐ</div>
+                </div>
+                <div class="top-item">
+                    <div class="top-rank">#4</div>
+                    <div class="top-avatar">🏬</div>
+                    <div class="top-info">
+                        <div class="top-name">Siêu thị GHI</div>
+                    </div>
+                    <div class="top-value">154 HĐ</div>
+                </div>
+                <div class="top-item">
+                    <div class="top-rank">#5</div>
+                    <div class="top-avatar">🏛️</div>
+                    <div class="top-info">
+                        <div class="top-name">Tập đoàn JKL</div>
+                    </div>
+                    <div class="top-value">132 HĐ</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Top hóa đơn giá trị cao -->
+    <div class="slide slide-8" id="slide-8">
+        <canvas class="particles-canvas" data-slide="8"></canvas>
+        <svg class="floating-icon float-1" width="120" height="120" viewBox="0 0 100 100" style="top: 10%; right: 12%;">
+            <rect x="30" y="30" width="40" height="50" fill="#333" rx="5"/>
+            <circle cx="50" cy="50" r="12" fill="white"/>
+            <text x="50" y="57" font-size="16" text-anchor="middle" fill="#ff9a9e" font-weight="bold">$</text>
+        </svg>
+        <svg class="floating-icon float-3" width="100" height="100" viewBox="0 0 100 100" style="bottom: 15%; left: 10%;">
+            <polygon points="50,20 60,40 82,43 66,58 70,80 50,68 30,80 34,58 18,43 40,40" fill="#333"/>
+            <circle cx="50" cy="50" r="8" fill="white"/>
+        </svg>
+        
+        <div class="logo-container">
+            <div class="logo-box">LOGO 1</div>
+            <div class="logo-box">LOGO 2</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Top 5 Hóa đơn giá trị cao nhất</h2>
+            <div class="top-list">
+                <div class="top-item">
+                    <div class="top-rank">#1</div>
+                    <div class="top-avatar">💎</div>
+                    <div class="top-info">
+                        <div class="top-name">Hóa đơn #2025-001</div>
+                    </div>
+                    <div class="top-value">2.5 tỷ</div>
+                </div>
+                <div class="top-item">
+                    <div class="top-rank">#2</div>
+                    <div class="top-avatar">💰</div>
+                    <div class="top-info">
+                        <div class="top-name">Hóa đơn #2025-042</div>
+                    </div>
+                    <div class="top-value">1.8 tỷ</div>
+                </div>
+                <div class="top-item">
+                    <div class="top-rank">#3</div>
+                    <div class="top-avatar">💵</div>
+                    <div class="top-info">
+                        <div class="top-name">Hóa đơn #2025-089</div>
+                    </div>
+                    <div class="top-value">1.5 tỷ</div>
+                </div>
+                <div class="top-item">
+                    <div class="top-rank">#4</div>
+                    <div class="top-avatar">💴</div>
+                    <div class="top-info">
+                        <div class="top-name">Hóa đơn #2025-156</div>
+                    </div>
+                    <div class="top-value">1.2 tỷ</div>
+                </div>
+                <div class="top-item">
+                    <div class="top-rank">#5</div>
+                    <div class="top-avatar">💶</div>
+                    <div class="top-info">
+                        <div class="top-name">Hóa đơn #2025-234</div>
+                    </div>
+                    <div class="top-value">980 triệu</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Badge -->
+    <div class="slide slide-9" id="slide-9">
+        <canvas class="particles-canvas" data-slide="9"></canvas>
+        <svg class="floating-icon float-2" width="110" height="110" viewBox="0 0 100 100" style="top: 12%; left: 10%;">
+            <circle cx="50" cy="45" r="25" fill="#333"/>
+            <polygon points="50,60 42,75 48,62 35,62 50,45" fill="#333"/>
+            <polygon points="50,60 58,75 52,62 65,62 50,45" fill="#333"/>
+        </svg>
+        <svg class="floating-icon float-4" width="120" height="120" viewBox="0 0 100 100" style="bottom: 15%; right: 12%;">
+            <path d="M 50 25 L 55 40 L 70 42 L 58 53 L 62 68 L 50 60 L 38 68 L 42 53 L 30 42 L 45 40 Z" fill="#333"/>
+            <circle cx="50" cy="48" r="10" fill="white"/>
+        </svg>
+        
+        <div class="logo-container">
+            <div class="logo-box">LOGO 1</div>
+            <div class="logo-box">LOGO 2</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Thành tích của bạn!</h2>
+            <div class="badge-container">
+                <div class="badge-icon">🎉</div>
+                <div class="badge-text">Bạn đã phát hành hơn 2500 hóa đơn!</div>
+            </div>
+            <div class="badge-container" style="margin-top: 30px; transition-delay: 0.6s;">
+                <div class="badge-icon">⚡</div>
+                <div class="badge-text">Tiết kiệm 156 giờ nhờ hóa đơn điện tử!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Story + Tips -->
+    <div class="slide slide-10" id="slide-10">
+        <canvas class="particles-canvas" data-slide="10"></canvas>
+        <svg class="floating-icon float-1" width="130" height="130" viewBox="0 0 100 100" style="top: 10%; right: 10%;">
+            <circle cx="50" cy="50" r="30" fill="white"/>
+            <path d="M 35 45 L 42 52 L 55 38" stroke="#ff6e7f" stroke-width="5" fill="none"/>
+        </svg>
+        <svg class="floating-icon float-3" width="110" height="110" viewBox="0 0 100 100" style="bottom: 15%; left: 10%;">
+            <rect x="25" y="35" width="50" height="40" fill="white" rx="5"/>
+            <path d="M 35 50 L 45 60 L 65 40" stroke="#ff6e7f" stroke-width="4" fill="none"/>
+        </svg>
+        
+        <div class="logo-container">
+            <div class="logo-box">LOGO 1</div>
+            <div class="logo-box">LOGO 2</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">2025 - Một năm tuyệt vời!</h2>
+            <div class="story-box">
+                <p class="story-text">
+                    "2025 là năm bạn xử lý tài chính cực kỳ hiệu quả. Bạn đã tiết kiệm 156 giờ nhờ hóa đơn điện tử EasyInvoice!"
+                </p>
+                <h3 style="margin-top: 40px; margin-bottom: 20px; font-weight: 700;">💡 Gợi ý cho năm 2026:</h3>
+                <div class="tips-list">
+                    ✨ Tự động hóa quy trình phát hành hóa đơn<br>
+                    ✨ Tích hợp với hệ thống kế toán<br>
+                    ✨ Sử dụng báo cáo phân tích chi tiết<br>
+                    ✨ Tối ưu hóa quy trình thanh toán
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" onclick="navigateSlide(-1)">← Trước</button>
+        <button class="nav-btn" id="nextBtn" onclick="navigateSlide(1)">Tiếp theo →</button>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+        <div class="progress-dot active" onclick="goToSlide(0)"></div>
+        <div class="progress-dot" onclick="goToSlide(1)"></div>
+        <div class="progress-dot" onclick="goToSlide(2)"></div>
+        <div class="progress-dot" onclick="goToSlide(3)"></div>
+        <div class="progress-dot" onclick="goToSlide(4)"></div>
+        <div class="progress-dot" onclick="goToSlide(5)"></div>
+        <div class="progress-dot" onclick="goToSlide(6)"></div>
+        <div class="progress-dot" onclick="goToSlide(7)"></div>
+        <div class="progress-dot" onclick="goToSlide(8)"></div>
+        <div class="progress-dot" onclick="goToSlide(9)"></div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressDots = document.querySelectorAll('.progress-dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Particle System
+        class ParticleSystem {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.particles = [];
+                this.resize();
+                this.init();
+                window.addEventListener('resize', () => this.resize());
+            }
+
+            resize() {
+                this.canvas.width = this.canvas.offsetWidth;
+                this.canvas.height = this.canvas.offsetHeight;
+            }
+
+            init() {
+                const particleCount = 50;
+                for (let i = 0; i < particleCount; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        radius: Math.random() * 2 + 1,
+                        opacity: Math.random() * 0.5 + 0.2
+                    });
+                }
+            }
+
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
+
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                    this.ctx.fill();
+                });
+
+                // Draw connections
+                this.particles.forEach((p1, i) => {
+                    this.particles.slice(i + 1).forEach(p2 => {
+                        const dx = p1.x - p2.x;
+                        const dy = p1.y - p2.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 100) {
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(p1.x, p1.y);
+                            this.ctx.lineTo(p2.x, p2.y);
+                            this.ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 * (1 - distance / 100)})`;
+                            this.ctx.lineWidth = 0.5;
+                            this.ctx.stroke();
+                        }
+                    });
+                });
+
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Initialize particle systems
+        const particleSystems = [];
+        document.querySelectorAll('.particles-canvas').forEach(canvas => {
+            const ps = new ParticleSystem(canvas);
+            particleSystems.push(ps);
+            ps.animate();
+        });
+
+        // Count-up animation
+        function animateCount(element) {
+            const target = parseInt(element.getAttribute('data-count'));
+            const suffix = element.getAttribute('data-suffix') || '';
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                
+                if (target > 1000000) {
+                    element.textContent = (current / 1000000000).toFixed(1) + ' tỷ' + suffix;
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString('vi-VN') + suffix;
+                }
+            }, 16);
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const countElements = entry.target.querySelectorAll('[data-count]');
+                    countElements.forEach(el => {
+                        if (!el.classList.contains('counted')) {
+                            el.classList.add('counted');
+                            animateCount(el);
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        slides.forEach(slide => observer.observe(slide));
+
+        // Navigation
+        function navigateSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < slides.length) {
+                goToSlide(newSlide);
+            }
+        }
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            progressDots[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            progressDots[currentSlide].classList.add('active');
+            
+            slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+            
+            // Update buttons
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') navigateSlide(-1);
+            if (e.key === 'ArrowRight') navigateSlide(1);
+        });
+
+        // Mouse wheel navigation
+        let isScrolling = false;
+        document.addEventListener('wheel', (e) => {
+            if (isScrolling) return;
+            isScrolling = true;
+            
+            if (e.deltaY > 0) {
+                navigateSlide(1);
+            } else {
+                navigateSlide(-1);
+            }
+            
+            setTimeout(() => { isScrolling = false; }, 1000);
+        });
+
+        // Load data function for ASP.NET integration
+        function loadData(data) {
+            if (data.totalInvoices) {
+                document.querySelector('#slide-2 .big-number').setAttribute('data-count', data.totalInvoices);
+            }
+            
+            if (data.totalValue) {
+                document.querySelector('#slide-3 .big-number').setAttribute('data-count', data.totalValue);
+            }
+            
+            if (data.invoicesSent) {
+                document.querySelectorAll('#slide-4 .stat-number')[0].setAttribute('data-count', data.invoicesSent);
+            }
+            if (data.invoicesReceived) {
+                document.querySelectorAll('#slide-4 .stat-number')[1].setAttribute('data-count', data.invoicesReceived);
+            }
+            if (data.invoicesRejected) {
+                document.querySelectorAll('#slide-4 .stat-number')[2].setAttribute('data-count', data.invoicesRejected);
+            }
+            if (data.invoiceTypes) {
+                document.querySelectorAll('#slide-4 .stat-number')[3].setAttribute('data-count', data.invoiceTypes);
+            }
+            
+            if (data.busiestMonth) {
+                document.querySelector('#slide-5 .big-number').textContent = data.busiestMonth;
+            }
+            if (data.busiestMonthCount) {
+                document.querySelector('#slide-5 [data-count]').setAttribute('data-count', data.busiestMonthCount);
+            }
+            
+            if (data.growthPercent) {
+                document.querySelector('#slide-6 .big-number').setAttribute('data-count', data.growthPercent);
+            }
+        }
+
+        // Initialize
+        prevBtn.disabled = true;
+    </script>
+</body>
+</html>

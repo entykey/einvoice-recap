@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recap Hóa Đơn Điện Tử 2025 - Chúc Mừng Năm Mới 2026</title>
+    <!-- Tải Tailwind CSS để styling nhanh và responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tải thư viện Icon Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Thiết lập font và màu sắc chủ đạo Tết */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        :root {
+            --color-red-tet: #C62828; /* Đỏ Đậm - May mắn */
+            --color-gold-tet: #FFD700; /* Vàng Ánh Kim - Tài lộc */
+            --color-bg-light: #FFF8E1; /* Nền Vàng Kem */
+            --color-text-dark: #333333;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg-light);
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* QUAN TRỌNG: Ngăn cuộn tự do của body */
+        }
+
+        /* Container của các slide, sử dụng flexbox để xếp ngang */
+        #slides-container {
+            display: flex;
+            width: fit-content;
+            height: 100vh;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory; /* Snap từng slide */
+            scroll-behavior: smooth; /* Mượt mà */
+            /* Thêm transition để chuyển động mượt mà */
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+        }
+
+        .slide {
+            flex-shrink: 0; /* Quan trọng: ngăn slide bị co lại */
+            width: 100vw; /* Mỗi slide chiếm trọn chiều rộng màn hình */
+            height: 100vh;
+            display: flex;
+            overflow-x: auto;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Kiểu chữ số lớn - Highlight */
+        .highlight-number {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 1;
+            color: var(--color-red-tet);
+            text-shadow: 4px 4px 0 var(--color-gold-tet);
+            transition: transform 0.3s ease;
+        }
+
+        /* Thiết kế nút điều hướng tinh tế hơn */
+        .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 50;
+            background: rgba(198, 40, 40, 0.7); /* Đỏ sậm */
+            color: var(--color-gold-tet);
+            padding: 1rem 0.5rem;
+            border-radius: 9999px; /* Tròn */
+            transition: background 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            opacity: 0.9;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: var(--color-red-tet);
+            transform: translateY(-50%) scale(1.05);
+            opacity: 1;
+        }
+
+        #prev-btn { left: 20px; }
+        #next-btn { right: 20px; }
+        .hidden-btn { opacity: 0; pointer-events: none; }
+        
+        /* Hiệu ứng hoa mai rơi */
+        .tet-decoration {
+            position: fixed; /* Giữ cố định trên màn hình */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .petal {
+            position: absolute;
+            /* Màu hoa mai */
+            background: linear-gradient(135deg, #FFEF96, #FFEC00);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.9; }
+            100% { transform: translateY(100vh) translateX(10vw) rotate(720deg); opacity: 0.2; }
+        }
+
+        /* Ảnh trang trí Tết (Bánh Chưng, Hoa Mai) */
+        .tet-asset {
+            position: absolute;
+            z-index: 20;
+            opacity: 0.8;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+            transition: transform 0.5s ease;
+        }
+
+        /* Slide 1 - Trang trí đặc biệt */
+        #slide-1 {
+            background-color: var(--color-red-tet);
+            background-image: url('https://placehold.co/1920x1080/FFFFFF/FFFFFF?text=Hoa+Mai+Texture');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        #slide-1 .card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 8px solid var(--color-gold-tet);
+        }
+        /* Loading spinner */
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--color-gold-tet);
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nút điều hướng -->
+    <button id="prev-btn" class="nav-btn hidden-btn">
+        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <button id="next-btn" class="nav-btn">
+        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+
+    <!-- Họa tiết hoa mai rơi -->
+    <div class="tet-decoration"></div>
+    
+    <!-- Container chứa các slide -->
+    <div id="slides-container">
+
+        <!-- SLIDE 1: Mở đầu & Số liệu chính (Phong cách Rực rỡ) -->
+        <div id="slide-1" class="slide">
+            
+            <!-- Trang trí bánh chưng (sử dụng placeholder) -->
+            <img src="./Picture1.png" class="tet-asset top-10 left-10 hidden md:block rotate-12" alt="Bánh Chưng">
+            <img src="./Picture1.png" class="tet-asset bottom-10 right-10 hidden md:block -rotate-6" alt="Bánh Tét">
+
+            <div class="card text-center p-10 rounded-[3rem] shadow-2xl max-w-4xl mx-auto transform transition duration-500 hover:scale-[1.02]">
+                <p class="text-3xl font-bold text-red-600 mb-4 animate-pulse">🎉 CHÚC MỪNG NĂM MỚI BÍNH NGỌ - 2026 🎉</p>
+                <h1 class="text-7xl font-extrabold text-red-800 mb-6 tracking-tight">
+                    RECAP THÀNH CÔNG 2025
+                </h1>
+                <p class="text-3xl font-light text-gray-700 mb-8">MST: <span id="mst-display" class="font-mono font-bold text-red-600">0123456789</span></p>
+                
+                <p class="text-2xl font-medium text-gray-600 mb-10">
+                    Bạn đã đóng góp vào một năm giao dịch hiệu quả. Cùng khám phá những con số ấn tượng!
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                    <div class="p-6 bg-red-100/80 rounded-2xl shadow-xl border-b-8 border-gold-tet">
+                        <p class="text-6xl highlight-number" id="total-invoices">2.500</p>
+                        <p class="text-xl font-semibold text-red-700 mt-3">TỔNG HÓA ĐƠN ĐÃ XỬ LÝ</p>
+                    </div>
+                    <div class="p-6 bg-yellow-100/80 rounded-2xl shadow-xl border-b-8 border-red-tet">
+                        <p class="text-6xl highlight-number" id="total-value">150 TỶ</p>
+                        <p class="text-xl font-semibold text-yellow-800 mt-3">TỔNG GIÁ TRỊ GIAO DỊCH</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Phân tích chi tiết (Phong cách ấm cúng) -->
+        <div class="slide bg-red-50" style="background-image: url('https://placehold.co/1920x1080/FFF8E1/C62828?text=Hoa+Đào+Phòng+Khách'); background-size: cover; background-position: top center;">
+            <div class="max-w-6xl w-full p-10 bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border-4 border-red-700">
+                <h2 class="text-4xl font-extrabold text-red-700 mb-8 border-b-4 border-gold-tet pb-3 text-center">📊 PHÂN TÍCH CHUYÊN SÂU HÓA ĐƠN</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Khối 1: Phân loại Hóa đơn -->
+                    <div class="lg:col-span-1 p-6 bg-red-100 rounded-xl shadow-inner transform hover:scale-[1.03] transition duration-300">
+                        <h3 class="text-2xl font-bold text-red-600 mb-4 flex items-center">
+                            <i data-lucide="scan-text" class="w-6 h-6 mr-3 text-gold-tet"></i> SỐ LIỆU THEO LOẠI
+                        </h3>
+                        <ul class="space-y-4 text-lg font-medium text-gray-700">
+                            <li class="flex justify-between items-center">Xuất (Phát hành): <span class="text-2xl text-red-700 font-extrabold">1.800</span></li>
+                            <li class="flex justify-between items-center">Nhập (Nhận): <span class="text-2xl text-red-700 font-extrabold">700</span></li>
+                            <li class="flex justify-between items-center">Khấu trừ: <span class="text-2xl text-red-700 font-extrabold">50</span></li>
+                            <li class="flex justify-between items-center">Điều chỉnh/Thay thế: <span class="text-2xl text-red-700 font-extrabold">12</span></li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-yellow-200/50 rounded-lg text-sm text-yellow-800 font-semibold border-l-4 border-yellow-700" id="rejected-invoices-info">
+                            ⚠️ HĐ bị từ chối: <span class="font-bold">15</span> (Cần xem xét quy trình đối tác!)
+                        </div>
+                    </div>
+                    
+                    <!-- Khối 2: Đối tác quan trọng -->
+                    <div class="lg:col-span-2 p-6 bg-white rounded-xl shadow-lg border-2 border-dashed border-red-300">
+                        <h3 class="text-2xl font-bold text-red-600 mb-4 flex items-center">
+                            <i data-lucide="handshake" class="w-6 h-6 mr-3 text-gold-tet"></i> TOP 5 ĐỐI TÁC VÀ GIAO DỊCH
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <p class="font-semibold text-xl text-red-700 mb-3 border-b pb-1">Khách hàng tương tác nhiều nhất:</p>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-center"><span class="w-6 font-extrabold text-gold-tet">1.</span> Công ty A (<span class="text-red-600 font-bold ml-1">450 HĐ</span>)</li>
+                                    <li class="flex items-center"><span class="w-6 font-extrabold text-red-400">2.</span> Doanh nghiệp B (<span class="text-gray-500 ml-1">320 HĐ</span>)</li>
+                                    <li>... và 3 đối tác quan trọng khác.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-xl text-red-700 mb-3 border-b pb-1">Top 3 Giao Dịch Giá Trị Cao:</p>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex justify-between"><span class="font-bold">HĐ #001</span>: <span class="text-red-600 font-extrabold">5.2 Tỷ VNĐ</span></li>
+                                    <li class="flex justify-between"><span class="font-bold">HĐ #010</span>: <span class="text-red-600 font-extrabold">4.8 Tỷ VNĐ</span></li>
+                                    <li class="flex justify-between"><span class="font-bold">HĐ #025</span>: <span class="text-red-600 font-extrabold">3.9 Tỷ VNĐ</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Trend & Insight (Phong cách Biểu đồ) -->
+        <div class="slide bg-white" style="background-image: url('https://placehold.co/1920x1080/FEF2F2/C62828?text=Lưới+Vàng+Khung+Tết'); background-size: cover;">
+            <div class="max-w-6xl w-full p-10 bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl border-4 border-gold-tet">
+                <h2 class="text-4xl font-extrabold text-red-700 mb-8 border-b-4 border-red-tet pb-3 text-center">📈 XU HƯỚNG & CỘT MỐC QUAN TRỌNG</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Biểu đồ (Mô phỏng) -->
+                    <div class="p-6 bg-red-50 rounded-xl shadow-lg border-2 border-red-300">
+                        <h3 class="text-2xl font-bold text-red-600 mb-4 flex items-center">
+                            <i data-lucide="line-chart" class="w-6 h-6 mr-3 text-gold-tet"></i> Biến Động Hàng Tháng
+                        </h3>
+                        <div class="h-64 flex flex-col justify-end p-2 bg-white rounded-lg border border-gray-200">
+                            <!-- Mô phỏng biểu đồ cột -->
+                            <p class="text-xs text-gray-500 mb-2 font-semibold">Tháng cao điểm: Tháng 11 (100%)</p>
+                            <div class="flex items-end h-full space-x-1 sm:space-x-2">
+                                <!-- Giả lập 12 tháng -->
+                                <div class="w-1/12 bg-red-200 hover:bg-red-400 transition duration-150 rounded-t" style="height: 40%"></div>
+                                <div class="w-1/12 bg-red-300 hover:bg-red-500 transition duration-150 rounded-t" style="height: 50%"></div>
+                                <div class="w-1/12 bg-red-200 hover:bg-red-400 transition duration-150 rounded-t" style="height: 35%"></div>
+                                <div class="w-1/12 bg-red-300 hover:bg-red-500 transition duration-150 rounded-t" style="height: 55%"></div>
+                                <div class="w-1/12 bg-red-400 hover:bg-red-600 transition duration-150 rounded-t" style="height: 60%"></div>
+                                <div class="w-1/12 bg-red-400 hover:bg-red-600 transition duration-150 rounded-t" style="height: 70%"></div>
+                                <div class="w-1/12 bg-red-500 hover:bg-red-700 transition duration-150 rounded-t" style="height: 80%"></div>
+                                <div class="w-1/12 bg-red-500 hover:bg-red-700 transition duration-150 rounded-t" style="height: 75%"></div>
+                                <div class="w-1/12 bg-red-600 hover:bg-red-800 transition duration-150 rounded-t" style="height: 90%"></div>
+                                <div class="w-1/12 bg-red-600 hover:bg-red-800 transition duration-150 rounded-t" style="height: 85%"></div>
+                                <div class="w-1/12 bg-red-700 hover:bg-red-900 transition duration-150 rounded-t" style="height: 100%" title="Tháng 11 - Cao nhất"></div>
+                                <div class="w-1/12 bg-red-600 hover:bg-red-800 transition duration-150 rounded-t" style="height: 70%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-1 text-gray-500 font-medium">
+                                <span>T1</span><span>T3</span><span>T5</span><span>T7</span><span>T9</span><span>T11</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Insight & Badges -->
+                    <div class="p-6 bg-yellow-50 rounded-xl shadow-lg border-l-4 border-red-tet">
+                        <h3 class="text-2xl font-bold text-red-600 mb-4 flex items-center">
+                            <i data-lucide="zap" class="w-6 h-6 mr-3 text-red-tet"></i> BỘ SƯU TẬP BADGES
+                        </h3>
+                        <div class="space-y-4" id="growth-insight">
+                            <div class="p-3 bg-red-100 rounded-lg flex items-center shadow-md">
+                                <span class="text-4xl mr-4">🚀</span>
+                                <div>
+                                    <p class="font-bold text-red-700">Tăng Trưởng Năm:</p>
+                                    <p class="text-gray-600">Đạt mức <span class="font-extrabold text-red-600" id="growth-rate">15%</span> so với 2024 (cao hơn 5% trung bình ngành).</p>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-gold-tet/20 rounded-lg flex items-center shadow-md">
+                                <span class="text-4xl mr-4">🎯</span>
+                                <div>
+                                    <p class="font-bold text-yellow-800">Hiệu Suất Vàng:</p>
+                                    <p class="text-gray-600">Loại hóa đơn Xuất chiếm <span class="font-extrabold text-red-600">72%</span> tổng số HĐ.</p>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-red-100 rounded-lg flex items-center shadow-md">
+                                <span class="text-4xl mr-4">⏰</span>
+                                <div>
+                                    <p class="font-bold text-red-700">Tiết Kiệm Thời Gian:</p>
+                                    <p class="text-gray-600">Tháng <span class="font-extrabold text-red-600">9</span> có sự tăng/giảm mạnh nhất (tăng 20% so với T8).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Storytelling & Gợi ý cho năm mới (Phong cách Thư Pháp) -->
+        <div class="slide bg-red-700/90" style="background-image: url('https://placehold.co/1920x1080/880E4F/FFD700?text=Thư+Pháp+Chúc+Mừng+Năm+Mới'); background-size: cover;">
+            <div class="text-center p-12 bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl max-w-3xl mx-auto border-8 border-double border-gold-tet">
+                <h2 class="text-6xl font-extrabold text-red-700 mb-6">XIN CHỮ ĐẦU NĂM</h2>
+                <div class="border-t-4 border-red-tet w-1/3 mx-auto mb-8"></div>
+                
+                <p class="text-2xl italic text-gray-700 mb-10 leading-snug">
+                    "Trong 2025, với mỗi hóa đơn được phát hành, bạn đã viết nên câu chuyện về sự chuyển đổi số. Ước tính, bạn đã **giảm thiểu 120 giờ làm việc** thủ công! Con số này là tiền đề cho một năm Bính Ngọ bứt phá!"
+                </p>
+
+                <div class="inline-flex items-center space-x-4 p-4 bg-red-700 rounded-full shadow-lg mb-10">
+                    <span class="text-4xl">🧧</span>
+                    <p class="text-3xl font-bold text-gold-tet">THỜI GIAN LÀ VÀNG!</p>
+                </div>
+
+                <!-- KHU VỰC GEMINI API -->
+                <div class="mt-8 mb-8">
+                    <button id="generate-greeting-btn" class="flex items-center justify-center mx-auto px-6 py-3 text-xl font-bold text-white bg-red-600 rounded-full shadow-xl hover:bg-red-800 transition duration-300">
+                        <i data-lucide="sparkles" class="w-6 h-6 mr-2 text-gold-tet"></i> ✨ Xin Câu Đối May Mắn Đầu Năm
+                    </button>
+                    
+                    <div id="greeting-result" class="mt-6 p-4 bg-yellow-50 rounded-xl text-lg text-gray-800 border-2 border-dashed border-red-300 min-h-[4rem] flex items-center justify-center italic text-center">
+                        Nhấn nút để nhận lời chúc Tết dựa trên thành tựu của bạn!
+                    </div>
+                    <div id="loading-indicator" class="hidden mt-4 flex items-center justify-center text-red-700 font-semibold">
+                        <div class="spinner"></div> Đang gửi dữ liệu đến Gemini...
+                    </div>
+                </div>
+                <!-- KẾT THÚC KHU VỰC GEMINI API -->
+
+                <h3 class="text-3xl font-bold text-red-700 mb-4 flex items-center justify-center">
+                    <i data-lucide="rocket" class="w-8 h-8 mr-3 text-gold-tet"></i> KHỞI ĐỘNG NĂM BÍNH NGỌ 2026
+                </h3>
+                <ul class="text-xl text-left space-y-4 text-gray-800 font-medium">
+                    <li><span class="font-bold text-red-600">⭐ Mẹo 1 (Tối ưu)</span>: Kích hoạt thông báo tự động cho HĐ bị từ chối để xử lý ngay lập tức (Tiết kiệm >50% thời gian đối soát).</li>
+                    <li><span class="font-bold text-red-600">⭐ Mẹo 2 (Mở rộng)</span>: Thử nghiệm tính năng Phân tích Dữ liệu Hóa đơn (BI) để tìm kiếm các cơ hội kinh doanh mới.</li>
+                </ul>
+
+                <p class="text-2xl mt-10 font-extrabold text-red-700">Kính chúc Quý Khách hàng một năm mới: Vạn Sự Như Ý, Tấn Tài Tấn Lộc!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Dữ liệu mô phỏng cố định
+        const MOCK_DATA = {
+            MST: "0312987654",
+            totalInvoices: "2,500",
+            totalValue: "150 TỶ VNĐ",
+            growthRate: "15%",
+            timeSavedHours: "120"
+        };
+        const GEMINI_MODEL = 'gemini-2.5-flash-preview-09-2025';
+        const API_KEY = ""; // Canvas will provide this if empty
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const slidesContainer = document.getElementById('slides-container');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const generateGreetingBtn = document.getElementById('generate-greeting-btn');
+            const greetingResult = document.getElementById('greeting-result');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            
+            let currentSlideIndex = 0;
+            const totalSlides = slides.length;
+            
+            // Hiển thị dữ liệu mô phỏng
+            document.getElementById('mst-display').textContent = MOCK_DATA.MST;
+            // Cập nhật các giá trị trong slides
+            document.getElementById('total-invoices').textContent = MOCK_DATA.totalInvoices;
+            document.getElementById('total-value').textContent = MOCK_DATA.totalValue;
+            document.getElementById('growth-rate').textContent = MOCK_DATA.growthRate;
+
+
+            // --- UTILITY FUNCTIONS ---
+
+            // Hàm fetch với cơ chế backoff (bắt buộc)
+            async function backoffFetch(url, options, maxRetries = 5, delay = 1000) {
+                for (let i = 0; i < maxRetries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (response.status !== 429) { // 429 Too Many Requests
+                            return response;
+                        }
+                        // Nếu là 429, đợi và thử lại
+                    } catch (error) {
+                        // Lỗi mạng hoặc lỗi khác, đợi và thử lại
+                    }
+                    if (i < maxRetries - 1) {
+                        await new Promise(resolve => setTimeout(resolve, delay * Math.pow(2, i)));
+                    }
+                }
+                throw new Error("API call failed after multiple retries.");
+            }
+
+            // --- GEMINI API INTEGRATION ---
+
+            async function generateGreeting() {
+                // Tắt nút và hiện loading
+                generateGreetingBtn.disabled = true;
+                loadingIndicator.classList.remove('hidden');
+                greetingResult.textContent = 'Đang tạo lời chúc...';
+                greetingResult.classList.add('animate-pulse');
+
+                const systemPrompt = "Bạn là một nhà thơ và chuyên gia phong thủy. Nhiệm vụ của bạn là tạo ra một lời chúc Tết hoặc câu đối chúc mừng năm mới Bính Ngọ 2026 (Xuân 2026). Lời chúc phải dựa trên số liệu kinh doanh được cung cấp, mang ý nghĩa may mắn, tài lộc, và đề cao sự hiệu quả trong giao dịch hóa đơn điện tử. Kết quả phải là một đoạn văn ngắn gọn, trang trọng, tối đa 50 từ, và chỉ chứa duy nhất lời chúc (không có tiêu đề, không có dấu đầu dòng). (Tone: Trang trọng, Chúc tụng).";
+                
+                const userQuery = `Doanh nghiệp đã xử lý ${MOCK_DATA.totalInvoices} hóa đơn, tổng giá trị ${MOCK_DATA.totalValue}, đạt tăng trưởng ${MOCK_DATA.growthRate}, và tiết kiệm được ${MOCK_DATA.timeSavedHours} giờ làm việc thủ công trong năm 2025. Hãy tạo lời chúc Tết cho năm 2026.`;
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${API_KEY}`;
+                
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                    // Không cần Google Search grounding cho việc tạo văn bản sáng tạo
+                };
+
+                try {
+                    const response = await backoffFetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "Không thể tạo lời chúc. Vui lòng thử lại.";
+                    
+                    // Hiển thị kết quả
+                    greetingResult.textContent = text;
+                    greetingResult.classList.remove('italic');
+
+                } catch (error) {
+                    console.error("Gemini API Error:", error);
+                    greetingResult.textContent = "Lỗi kết nối API. Vui lòng kiểm tra lại.";
+                } finally {
+                    // Tắt loading và bật lại nút
+                    generateGreetingBtn.disabled = false;
+                    loadingIndicator.classList.add('hidden');
+                    greetingResult.classList.remove('animate-pulse');
+                }
+            }
+            
+            // Gắn sự kiện cho nút
+            generateGreetingBtn.addEventListener('click', generateGreeting);
+
+            // --- SLIDE NAVIGATION LOGIC (Giữ nguyên) ---
+
+            // Hàm cập nhật vị trí slide bằng transform
+            function updateSlide() {
+                // Trượt container ngang
+                const offset = -currentSlideIndex * 100;
+                slidesContainer.style.transform = `translateX(${offset}vw)`;
+
+                // Cập nhật nút điều hướng
+                prevBtn.classList.toggle('hidden-btn', currentSlideIndex === 0);
+                nextBtn.classList.toggle('hidden-btn', currentSlideIndex === totalSlides - 1);
+
+                // Cập nhật icon Lucide trong slide hiện tại
+                lucide.createIcons();
+            }
+
+            // Hàm chuyển slide
+            function goToSlide(index) {
+                if (index >= 0 && index < totalSlides) {
+                    currentSlideIndex = index;
+                    updateSlide();
+                }
+            }
+
+
+            // Xử lý nút Next
+            nextBtn.addEventListener('click', () => {
+                goToSlide(currentSlideIndex + 1);
+            });
+
+            // Xử lý nút Previous
+            prevBtn.addEventListener('click', () => {
+                goToSlide(currentSlideIndex - 1);
+            });
+
+            // Xử lý trượt bằng phím mũi tên
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                } else if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                }
+            });
+
+            // Xử lý vuốt trên thiết bị di động
+            let touchstartX = 0;
+            let touchendX = 0;
+
+            slidesContainer.addEventListener('touchstart', e => {
+                touchstartX = e.changedTouches[0].screenX;
+            }, false);
+
+            slidesContainer.addEventListener('touchend', e => {
+                touchendX = e.changedTouches[0].screenX;
+                handleGesture();
+            }, false);
+
+            function handleGesture() {
+                const threshold = 50; // Ngưỡng vuốt tối thiểu
+
+                if (touchendX < touchstartX - threshold) {
+                    // Vuốt sang trái (Next)
+                    nextBtn.click();
+                }
+
+                if (touchendX > touchstartX + threshold) {
+                    // Vuốt sang phải (Prev)
+                    prevBtn.click();
+                }
+            }
+
+            // Tạo hiệu ứng hoa rơi ngẫu nhiên (Hoa Mai Vàng)
+            function createPetal() {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                const startX = Math.random() * 100;
+                const duration = 5 + Math.random() * 5;
+                const size = 5 + Math.random() * 10;
+                
+                petal.style.left = `${startX}vw`;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                petal.style.animationDuration = `${duration}s`;
+                petal.style.animationDelay = `-${Math.random() * 5}s`;
+                
+                document.querySelector('.tet-decoration').appendChild(petal);
+
+                // Xóa cánh hoa sau khi rơi để tránh tràn DOM
+                setTimeout(() => {
+                    petal.remove();
+                }, duration * 1000);
+            }
+
+            // Bắt đầu tạo hoa rơi
+            setInterval(createPetal, 300);
+
+            // Khởi tạo lần đầu
+            updateSlide();
+        });
+    </script>
+</body>
+</html>

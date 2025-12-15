@@ -1,0 +1,1343 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>EasyInvoice - Year in Review 2025 🎉</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                /*overflow-x: hidden;*/
+                overflow: hidden;
+                background: #0a0a0f;
+            }
+
+            /* ===== PARTICLE BACKGROUND ===== */
+            .particle-bg {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 1;
+            }
+
+            .particle {
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+                animation: float 15s infinite ease-in-out;
+            }
+
+            @keyframes float {
+                0%,
+                100% {
+                    transform: translateY(0) translateX(0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100vh) translateX(50px);
+                    opacity: 0;
+                }
+            }
+
+            /* ===== SLIDE CONTAINER ===== */
+            .slide-container {
+                position: relative;
+                z-index: 2;
+            }
+
+            .slide {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 60px 20px;
+                position: relative;
+                overflow: hidden;
+                opacity: 0;
+                transform: translateY(50px);
+                transition: all 0.8s ease-out;
+            }
+
+            .slide.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* ===== LOGO TOP CENTER ===== */
+            .logo-container {
+                position: absolute;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                z-index: 100;
+            }
+
+            .logo {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-weight: 600;
+                font-size: 14px;
+                color: #fff;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            /* ===== NAVIGATION BUTTONS ===== */
+            .nav-btn {
+                position: fixed;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 1000;
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(10px);
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                color: white;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+                transition: all 0.3s;
+            }
+
+            .nav-btn:hover {
+                background: rgba(255, 255, 255, 0.25);
+                transform: translateY(-50%) scale(1.1);
+            }
+
+            .nav-btn.prev {
+                left: 20px;
+            }
+            .nav-btn.next {
+                right: 20px;
+            }
+
+            /* ===== SLIDE 1 - COVER ===== */
+            .slide-1 {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            .hero-title {
+                font-size: clamp(48px, 8vw, 96px);
+                font-weight: 900;
+                color: #fff;
+                text-align: center;
+                margin-bottom: 20px;
+                animation: slideUpFade 1s ease-out forwards;
+                text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .hero-subtitle {
+                font-size: clamp(18px, 3vw, 28px);
+                color: rgba(255, 255, 255, 0.9);
+                text-align: center;
+                max-width: 700px;
+                animation: slideUpFade 1s 0.3s ease-out forwards;
+                opacity: 0;
+            }
+
+            @keyframes slideUpFade {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Floating illustration */
+            .floating-icon {
+                position: absolute;
+                font-size: 60px;
+                animation: floatIcon 4s ease-in-out infinite;
+                opacity: 0.3;
+            }
+
+            @keyframes floatIcon {
+                0%,
+                100% {
+                    transform: translateY(0) rotate(0deg);
+                }
+                50% {
+                    transform: translateY(-30px) rotate(5deg);
+                }
+            }
+
+            /* ===== SLIDE 2-3 - BIG NUMBERS ===== */
+            .slide-2 {
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            }
+
+            .slide-3 {
+                background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            }
+
+            .big-number-card {
+                background: rgba(255, 255, 255, 0.15);
+                /*background: #ffffff;*/
+                backdrop-filter: blur(20px);
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                border-radius: 32px;
+                padding: 60px 80px;
+                text-align: center;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                animation: scaleIn 0.8s ease-out forwards;
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            .slide.active .big-number-card {
+                animation: scaleIn 0.8s ease-out forwards;
+            }
+
+            @keyframes scaleIn {
+                to {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+
+            .big-number {
+                font-size: clamp(64px, 12vw, 120px);
+                font-weight: 900;
+                color: #fff;
+                text-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+                margin: 20px 0;
+                animation: pulse 2s ease-in-out infinite;
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+            }
+
+            .big-label {
+                font-size: clamp(20px, 3vw, 32px);
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            .big-subtitle {
+                font-size: clamp(16px, 2vw, 20px);
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            /* ===== SLIDE 4 - TWO CARDS ===== */
+            .slide-4 {
+                background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            }
+
+            .two-card-container {
+                display: flex;
+                gap: 30px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .stat-card {
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(20px);
+                border: 2px solid rgba(255, 255, 255, 0.4);
+                border-radius: 24px;
+                padding: 40px;
+                min-width: 280px;
+                text-align: center;
+                animation: slideInLeft 0.8s ease-out forwards;
+                opacity: 0;
+            }
+
+            .slide.active .stat-card:nth-child(1) {
+                animation: slideInLeft 0.8s ease-out forwards;
+            }
+
+            .slide.active .stat-card:nth-child(2) {
+                animation: slideInRight 0.8s 0.2s ease-out forwards;
+            }
+
+            @keyframes slideInLeft {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            .stat-number {
+                font-size: clamp(48px, 8vw, 72px);
+                font-weight: 900;
+                color: #fff;
+                margin: 15px 0;
+            }
+
+            .stat-label {
+                font-size: clamp(18px, 2.5vw, 24px);
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 600;
+            }
+
+            /* ===== SLIDE 5 - HIGHLIGHT MONTH ===== */
+            .slide-5 {
+                background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            }
+
+            .badge-container {
+                position: relative;
+                background: rgba(255, 255, 255, 0.25);
+                backdrop-filter: blur(20px);
+                border: 3px solid rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+                width: 300px;
+                height: 300px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                animation: rotate360 20s linear infinite;
+                box-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
+            }
+
+            @keyframes rotate360 {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .badge-inner {
+                animation: rotate360reverse 20s linear infinite;
+            }
+
+            @keyframes rotate360reverse {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(-360deg);
+                }
+            }
+
+            .badge-month {
+                font-size: 48px;
+                font-weight: 900;
+                color: #333;
+            }
+
+            .badge-label {
+                font-size: 18px;
+                color: #666;
+                margin-top: 10px;
+            }
+
+            /* ===== SLIDE 6 - GROWTH ===== */
+            .slide-6 {
+                background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            }
+
+            .growth-card {
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(20px);
+                border: 2px solid rgba(255, 255, 255, 0.4);
+                border-radius: 28px;
+                padding: 50px;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .growth-percent {
+                font-size: clamp(80px, 15vw, 140px);
+                font-weight: 900;
+                color: #2ecc71;
+                text-shadow: 0 0 30px rgba(46, 204, 113, 0.5);
+                position: relative;
+                display: inline-block;
+            }
+
+            .growth-arrow {
+                font-size: 60px;
+                animation: arrowUp 1.5s ease-in-out infinite;
+                margin-left: 20px;
+            }
+
+            @keyframes arrowUp {
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-15px);
+                }
+            }
+
+            /* Confetti particles */
+            .confetti {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background: #f39c12;
+                animation: confettiFall 3s ease-out infinite;
+            }
+
+            @keyframes confettiFall {
+                0% {
+                    transform: translateY(-50px) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(500px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+
+            /* ===== SLIDE 7 - TOP 10 LIST ===== */
+            .slide-7 {
+                background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+            }
+
+            .top-list-container {
+                max-width: 800px;
+                width: 100%;
+            }
+
+            .top-item {
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(15px);
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                border-radius: 20px;
+                padding: 20px 30px;
+                margin: 15px 0;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                opacity: 0;
+                transform: translateX(-50px);
+                animation: slideInItem 0.6s ease-out forwards;
+            }
+
+            .slide.active .top-item:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+            .slide.active .top-item:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+            .slide.active .top-item:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+            .slide.active .top-item:nth-child(4) {
+                animation-delay: 0.4s;
+            }
+            .slide.active .top-item:nth-child(5) {
+                animation-delay: 0.5s;
+            }
+            .slide.active .top-item:nth-child(6) {
+                animation-delay: 0.6s;
+            }
+            .slide.active .top-item:nth-child(7) {
+                animation-delay: 0.7s;
+            }
+            .slide.active .top-item:nth-child(8) {
+                animation-delay: 0.8s;
+            }
+            .slide.active .top-item:nth-child(9) {
+                animation-delay: 0.9s;
+            }
+            .slide.active .top-item:nth-child(10) {
+                animation-delay: 1s;
+            }
+
+            @keyframes slideInItem {
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            /* TOP 1 - SPOTLIGHT */
+            .top-item.rank-1 {
+                background: linear-gradient(
+                    135deg,
+                    rgba(255, 215, 0, 0.4),
+                    rgba(255, 140, 0, 0.4)
+                );
+                border: 3px solid gold;
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+                transform: scale(1.05);
+            }
+
+            /* TOP 2 */
+            .top-item.rank-2 {
+                background: linear-gradient(
+                    135deg,
+                    rgba(192, 192, 192, 0.4),
+                    rgba(169, 169, 169, 0.4)
+                );
+                border: 3px solid silver;
+                box-shadow: 0 0 30px rgba(192, 192, 192, 0.5);
+            }
+
+            /* TOP 3 */
+            .top-item.rank-3 {
+                background: linear-gradient(
+                    135deg,
+                    rgba(205, 127, 50, 0.4),
+                    rgba(184, 115, 51, 0.4)
+                );
+                border: 3px solid #cd7f32;
+                box-shadow: 0 0 30px rgba(205, 127, 50, 0.5);
+            }
+
+            .rank-badge {
+                font-size: 32px;
+                font-weight: 900;
+                min-width: 50px;
+                text-align: center;
+            }
+
+            .top-info {
+                flex: 1;
+            }
+
+            .top-name {
+                font-size: 20px;
+                font-weight: 700;
+                color: #333;
+                margin-bottom: 5px;
+            }
+
+            .top-value {
+                font-size: 16px;
+                color: #666;
+                font-weight: 600;
+            }
+
+            /* ===== SLIDE 8 - TOP INVOICES ===== */
+            .slide-8 {
+                background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+            }
+
+            .invoice-stack {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                max-width: 600px;
+            }
+
+            .invoice-card {
+                background: rgba(255, 255, 255, 0.25);
+                backdrop-filter: blur(20px);
+                border: 2px solid rgba(255, 255, 255, 0.4);
+                border-radius: 20px;
+                padding: 30px;
+                transition: all 0.3s;
+                cursor: pointer;
+                animation: stackSlide 0.8s ease-out forwards;
+                opacity: 0;
+            }
+
+            .slide.active .invoice-card:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+            .slide.active .invoice-card:nth-child(2) {
+                animation-delay: 0.3s;
+            }
+            .slide.active .invoice-card:nth-child(3) {
+                animation-delay: 0.5s;
+            }
+
+            @keyframes stackSlide {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .invoice-card:hover {
+                transform: translateY(-5px) scale(1.02);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            }
+
+            .invoice-number {
+                font-size: 14px;
+                color: #666;
+                margin-bottom: 10px;
+            }
+
+            .invoice-amount {
+                font-size: 36px;
+                font-weight: 900;
+                color: #333;
+                margin-bottom: 10px;
+            }
+
+            .invoice-client {
+                font-size: 16px;
+                color: #555;
+            }
+
+            /* ===== SLIDE 9 - ACHIEVEMENTS ===== */
+            .slide-9 {
+                background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            }
+
+            .achievements-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 25px;
+                max-width: 900px;
+            }
+
+            .achievement-badge {
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(15px);
+                border: 2px solid rgba(255, 255, 255, 0.4);
+                border-radius: 24px;
+                padding: 30px;
+                text-align: center;
+                animation: popIn 0.6s ease-out forwards;
+                transform: scale(0);
+            }
+
+            .slide.active .achievement-badge:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+            .slide.active .achievement-badge:nth-child(2) {
+                animation-delay: 0.3s;
+            }
+            .slide.active .achievement-badge:nth-child(3) {
+                animation-delay: 0.5s;
+            }
+
+            @keyframes popIn {
+                to {
+                    transform: scale(1);
+                }
+            }
+
+            .achievement-icon {
+                font-size: 64px;
+                margin-bottom: 15px;
+                animation: bounce 2s ease-in-out infinite;
+            }
+
+            @keyframes bounce {
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-10px);
+                }
+            }
+
+            .achievement-title {
+                font-size: 20px;
+                font-weight: 700;
+                color: #333;
+                margin-bottom: 10px;
+            }
+
+            .achievement-desc {
+                font-size: 14px;
+                color: #666;
+            }
+
+            /* ===== SLIDE 10 - ENDING ===== */
+            .slide-10 {
+                background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            }
+
+            .ending-card {
+                background: rgba(255, 255, 255, 0.25);
+                backdrop-filter: blur(20px);
+                border: 2px solid rgba(255, 255, 255, 0.4);
+                border-radius: 32px;
+                padding: 60px 40px;
+                max-width: 700px;
+                text-align: center;
+            }
+
+            .ending-title {
+                font-size: clamp(36px, 6vw, 56px);
+                font-weight: 900;
+                color: #333;
+                margin-bottom: 25px;
+            }
+
+            .ending-text {
+                font-size: clamp(16px, 2.5vw, 22px);
+                color: #555;
+                line-height: 1.6;
+                margin-bottom: 30px;
+            }
+
+            .cta-btn {
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                border: none;
+                padding: 18px 40px;
+                font-size: 18px;
+                font-weight: 700;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s;
+                box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            }
+
+            .cta-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+            }
+
+            /* ===== SECTION TITLE ===== */
+            .section-title {
+                font-size: clamp(32px, 5vw, 48px);
+                font-weight: 800;
+                color: #fff;
+                text-align: center;
+                margin-bottom: 50px;
+                text-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            /* ===== RESPONSIVE ===== */
+            @media (max-width: 768px) {
+                .nav-btn {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 16px;
+                }
+
+                .logo-container {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                .two-card-container {
+                    flex-direction: column;
+                }
+
+                .badge-container {
+                    width: 220px;
+                    height: 220px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Particle Background -->
+        <div class="particle-bg" id="particleBg"></div>
+
+        <!-- Navigation Buttons -->
+        <button class="nav-btn prev" onclick="prevSlide()">←</button>
+        <button class="nav-btn next" onclick="nextSlide()">→</button>
+
+        <!-- Slides Container -->
+        <div class="slide-container" id="slideContainer">
+            <!-- SLIDE 1: COVER -->
+            <div class="slide slide-1 active">
+                <div class="logo-container">
+                    <div class="logo">🏢 Your Company</div>
+                    <div class="logo">📊 EasyInvoice</div>
+                </div>
+                <div class="floating-icon" style="top: 10%; left: 10%">🎉</div>
+                <div
+                    class="floating-icon"
+                    style="top: 20%; right: 15%; animation-delay: 1s"
+                >
+                    🚀
+                </div>
+                <div
+                    class="floating-icon"
+                    style="bottom: 15%; left: 20%; animation-delay: 2s"
+                >
+                    💎
+                </div>
+                <div
+                    class="floating-icon"
+                    style="bottom: 25%; right: 10%; animation-delay: 1.5s"
+                >
+                    📈
+                </div>
+
+                <h1 class="hero-title">2025 🎊<br />Your Year in Review</h1>
+                <p class="hero-subtitle">
+                    Một năm đầy tăng trưởng và thành công. Hãy cùng nhìn lại
+                    hành trình tuyệt vời của bạn với EasyInvoice!
+                </p>
+            </div>
+
+            <!-- SLIDE 2: TOTAL INVOICES -->
+            <div class="slide slide-2">
+                <div class="logo-container">
+                    <div class="logo">🏢 Your Company</div>
+                    <div class="logo">📊 EasyInvoice</div>
+                </div>
+                <h2 class="section-title">Tổng số hóa đơn năm 2025</h2>
+                <div class="big-number-card">
+                    <div class="big-label">Bạn đã xử lý</div>
+                    <div class="big-number" id="totalInvoices">0</div>
+                    <div class="big-subtitle">hóa đơn trong năm qua! 🎯</div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: TOTAL VALUE -->
+            <div class="slide slide-3">
+                <div class="logo-container">
+                    <div class="logo">🏢 Your Company</div>
+                    <div class="logo">📊 EasyInvoice</div>
+                </div>
+                <h2 class="section-title">Tổng giá trị giao dịch</h2>
+                <div class="big-number-card">
+                    <div class="big-label">Tổng giá trị</div>
+                    <div class="big-number" id="totalValue">0</div>
+                    <div class="big-subtitle">VNĐ đã được quản lý! 💰</div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: ISSUED VS RECEIVED -->
+            <div class="slide slide-4">
+                <div class="logo-container">
+                    <div class="logo">🏢 Your Company</div>
+                    <div class="logo">📊 EasyInvoice</div>
+                </div>
+                <h2 class="section-title">Phát hành vs Nhận</h2>
+                <div class="two-card-container">
+                    <div class="stat-card">
+                        <div class="stat-label">📤 Hóa đơn phát hành</div>
+                        <div class="stat-number" id="issuedCount">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">📥 Hóa đơn nhận</div>
+                        <div class="stat-number" id="receivedCount">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: BUSIEST MONTH -->
+            <div class="slide slide-5">
+                <div class="logo-container">
+                    <div class="logo">🏢 Your Company</div>
+                    <div class="logo">📊 EasyInvoice</div>
+                </div>
+                <h2 class="section-title" style="color: #333">
+                    Tháng bận rộn nhất
+                </h2>
+                <div class="badge-container">
+                    <div class="badge-inner">
+                        <div class="badge-month" id="busiestMonth">
+                            Tháng 12
+                        </div>
+                        <div class="badge-label">🔥 HOT MONTH</div>
+                    </div>
+                </div>
+                <p
+                    style="
+                        margin-top: 30px;
+                        font-size: 20px;
+                        color: #333;
+                        font-weight: 600;
+                    "
+                >
+                    <span id="busiestMonthCount">0</span> hóa đơn trong tháng
+                    này!
+                </p>
+            </div>
+
+            <!-- SLIDE 6: GROWTH -->
+            <div class="slide slide-6">
+                <div class="logo-container">
+                    <div class="logo">🏢 Your Company</div>
+                    <div class="logo">📊 EasyInvoice</div>
+                </div>
+                <h2 class="section-title" style="color: #333">
+                    Tăng trưởng 2024 → 2025
+                </h2>
+                <div class="growth-card">
+                    <!-- Confetti particles -->
+                    <div
+                        class="confetti"
+                        style="left: 10%; animation-delay: 0s"
+                    ></div>
+                    <div
+                        class="confetti"
+                        style="
+                            left: 30%;
+                            animation-delay: 0.5s;
+                            background: #e74c3c;
+                        "
+                    ></div>
+                    <div
+                        class="confetti"
+                        style="
+                            left: 50%;
+                            animation-delay: 1s;
+                            background: #3498db;
+                        "
+                    ></div>
+                    <div
+                        class="confetti"
+                        style="
+                            left: 70%;
+                            animation-delay: 1.5s;
+                            background: #2ecc71;
+                        "
+                    ></div>
+                    <div
+                        class="confetti"
+                        style="
+                            left: 90%;
+                            animation-delay: 2s;
+                            background: #9b59b6;
+                        "
+                    ></div>
+
+                    <div class="big-label" style="color: #333">Tăng trưởng</div>
+                    <div>
+                        <span class="growth-percent" id="growthPercent">0</span
+                        ><span class="growth-percent">%</span>
+                        <span class="growth-arrow">⬆️</span>
+                    </div>
+                    <div class="big-subtitle" style="color: #555">
+                        so với năm 2024! Xuất sắc! 🎉
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: TOP 10 -->
+            <div class="slide slide-7">
+                <div class="logo-container">
+                    <div class="logo">🏢 Your Company</div>
+                    <div class="logo">📊 EasyInvoice</div>
+                </div>
+                <h2 class="section-title" style="color: #333">
+                    Top 10 Khách hàng / Nhà cung cấp
+                </h2>
+                <div class="top-list-container" id="topList">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+
+            <!-- SLIDE 8: TOP INVOICES -->
+            <div class="slide slide-8">
+                <div class="logo-container">
+                    <div class="logo">🏢 Your Company</div>
+                    <div class="logo">📊 EasyInvoice</div>
+                </div>
+                <h2 class="section-title">Hóa đơn giá trị cao nhất</h2>
+                <div class="invoice-stack" id="invoiceStack">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+
+            <!-- SLIDE 9: ACHIEVEMENTS -->
+            <div class="slide slide-9">
+                <div class="logo-container">
+                    <div class="logo">🏢 Your Company</div>
+                    <div class="logo">📊 EasyInvoice</div>
+                </div>
+                <h2 class="section-title" style="color: #333">
+                    Thành tựu của bạn 🏆
+                </h2>
+                <div class="achievements-grid">
+                    <div class="achievement-badge">
+                        <div class="achievement-icon">🎉</div>
+                        <div class="achievement-title">Siêu Năng Suất</div>
+                        <div class="achievement-desc">
+                            Bạn thuộc Top 10% người dùng năng suất nhất!
+                        </div>
+                    </div>
+                    <div class="achievement-badge">
+                        <div class="achievement-icon">💎</div>
+                        <div class="achievement-title">Chuyên Gia</div>
+                        <div class="achievement-desc">
+                            Đã xử lý hơn 1000 hóa đơn trong năm!
+                        </div>
+                    </div>
+                    <div class="achievement-badge">
+                        <div class="achievement-icon">🚀</div>
+                        <div class="achievement-title">
+                            Tăng Trưởng Vượt Bậc
+                        </div>
+                        <div class="achievement-desc">
+                            Tăng trưởng vượt 50% so với năm trước!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10: ENDING -->
+            <div class="slide slide-10">
+                <div class="logo-container">
+                    <div class="logo">🏢 Your Company</div>
+                    <div class="logo">📊 EasyInvoice</div>
+                </div>
+                <div class="floating-icon" style="top: 15%; left: 10%">✨</div>
+                <div
+                    class="floating-icon"
+                    style="top: 25%; right: 12%; animation-delay: 1s"
+                >
+                    🌟
+                </div>
+                <div
+                    class="floating-icon"
+                    style="bottom: 20%; left: 15%; animation-delay: 2s"
+                >
+                    💫
+                </div>
+
+                <div class="ending-card">
+                    <h2 class="ending-title">Cảm ơn bạn! 🙏</h2>
+                    <p class="ending-text">
+                        2025 đã là một năm tuyệt vời với sự đồng hành của bạn.
+                        Cùng nhau, chúng ta đã đạt được những thành tựu đáng
+                        kinh ngạc!
+                        <br /><br />
+                        <strong>💡 Tips cho 2026:</strong><br />
+                        Hãy tiếp tục tối ưu quy trình, tự động hóa nhiều hơn, và
+                        để EasyInvoice giúp bạn tiết kiệm thời gian hơn nữa!
+                    </p>
+                    <button class="cta-btn">Bắt đầu năm mới 2026 🚀</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // ===== DATA STRUCTURE - Replace with your actual data =====
+            let recapData = {
+                totalInvoices: 1247,
+                totalValue: 15680000000,
+                issuedCount: 823,
+                receivedCount: 424,
+                busiestMonth: "Tháng 12",
+                busiestMonthCount: 187,
+                growthPercent: 67,
+                topCustomers: [
+                    { name: "Công ty TNHH ABC", value: 2500000000 },
+                    { name: "Tập đoàn XYZ", value: 1800000000 },
+                    { name: "Doanh nghiệp DEF", value: 1200000000 },
+                    { name: "Công ty GHI", value: 980000000 },
+                    { name: "Công ty JKL", value: 750000000 },
+                    { name: "Doanh nghiệp MNO", value: 620000000 },
+                    { name: "Công ty PQR", value: 550000000 },
+                    { name: "Tập đoàn STU", value: 480000000 },
+                    { name: "Công ty VWX", value: 410000000 },
+                    { name: "Doanh nghiệp YZ", value: 350000000 },
+                ],
+                topInvoices: [
+                    {
+                        number: "INV-2025-1243",
+                        amount: 850000000,
+                        client: "Công ty TNHH ABC",
+                    },
+                    {
+                        number: "INV-2025-0892",
+                        amount: 720000000,
+                        client: "Tập đoàn XYZ",
+                    },
+                    {
+                        number: "INV-2025-1156",
+                        amount: 650000000,
+                        client: "Doanh nghiệp DEF",
+                    },
+                ],
+            };
+
+            // ===== FUNCTION TO LOAD DATA (from JSON) =====
+            function loadData(jsonData) {
+                recapData = jsonData;
+                updateUI();
+            }
+
+            // ===== UPDATE UI WITH DATA =====
+            function updateUI() {
+                // Slide 2: Total Invoices
+                animateNumber("totalInvoices", recapData.totalInvoices, 2000);
+
+                // Slide 3: Total Value
+                animateNumber(
+                    "totalValue",
+                    recapData.totalValue,
+                    2000,
+                    formatCurrency,
+                );
+
+                // Slide 4: Issued vs Received
+                animateNumber("issuedCount", recapData.issuedCount, 1500);
+                animateNumber("receivedCount", recapData.receivedCount, 1500);
+
+                // Slide 5: Busiest Month
+                document.getElementById("busiestMonth").textContent =
+                    recapData.busiestMonth;
+                animateNumber(
+                    "busiestMonthCount",
+                    recapData.busiestMonthCount,
+                    1500,
+                );
+
+                // Slide 6: Growth
+                animateNumber("growthPercent", recapData.growthPercent, 2000);
+
+                // Slide 7: Top 10
+                renderTopList();
+
+                // Slide 8: Top Invoices
+                renderTopInvoices();
+            }
+
+            // ===== ANIMATE NUMBER (COUNT-UP) =====
+            function animateNumber(
+                elementId,
+                targetValue,
+                duration,
+                formatter = null,
+            ) {
+                const element = document.getElementById(elementId);
+                const startValue = 0;
+                const startTime = performance.now();
+
+                function updateNumber(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Easing function for smooth animation
+                    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                    const currentValue = Math.floor(
+                        startValue + (targetValue - startValue) * easeOutQuart,
+                    );
+
+                    element.textContent = formatter
+                        ? formatter(currentValue)
+                        : currentValue.toLocaleString("vi-VN");
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateNumber);
+                    }
+                }
+
+                requestAnimationFrame(updateNumber);
+            }
+
+            // ===== FORMAT CURRENCY =====
+            function formatCurrency(value) {
+                if (value >= 1000000000) {
+                    return (value / 1000000000).toFixed(1) + " tỷ";
+                } else if (value >= 1000000) {
+                    return (value / 1000000).toFixed(0) + " triệu";
+                }
+                return value.toLocaleString("vi-VN");
+            }
+
+            // ===== RENDER TOP 10 LIST =====
+            function renderTopList() {
+                const container = document.getElementById("topList");
+                container.innerHTML = "";
+
+                recapData.topCustomers.forEach((customer, index) => {
+                    const rankClass =
+                        index === 0
+                            ? "rank-1"
+                            : index === 1
+                              ? "rank-2"
+                              : index === 2
+                                ? "rank-3"
+                                : "";
+                    const badge =
+                        index === 0
+                            ? "👑"
+                            : index === 1
+                              ? "🥈"
+                              : index === 2
+                                ? "🥉"
+                                : `#${index + 1}`;
+
+                    const item = document.createElement("div");
+                    item.className = `top-item ${rankClass}`;
+                    item.innerHTML = `
+                    <div class="rank-badge">${badge}</div>
+                    <div class="top-info">
+                        <div class="top-name">${customer.name}</div>
+                        <div class="top-value">${formatCurrency(customer.value)} VNĐ</div>
+                    </div>
+                `;
+                    container.appendChild(item);
+                });
+            }
+
+            // ===== RENDER TOP INVOICES =====
+            function renderTopInvoices() {
+                const container = document.getElementById("invoiceStack");
+                container.innerHTML = "";
+
+                recapData.topInvoices.forEach((invoice) => {
+                    const card = document.createElement("div");
+                    card.className = "invoice-card";
+                    card.innerHTML = `
+                    <div class="invoice-number">${invoice.number}</div>
+                    <div class="invoice-amount">${formatCurrency(invoice.amount)} VNĐ</div>
+                    <div class="invoice-client">${invoice.client}</div>
+                `;
+                    container.appendChild(card);
+                });
+            }
+
+            // ===== SLIDE NAVIGATION =====
+            let currentSlide = 0;
+            const slides = document.querySelectorAll(".slide");
+            const totalSlides = slides.length;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove("active");
+                    slide.style.display = i === index ? "flex" : "none";
+                });
+
+                slides[index].classList.add("active");
+
+                // reset number animation (tránh chạy chồng)
+                if (index === 1)
+                    animateNumber(
+                        "totalInvoices",
+                        recapData.totalInvoices,
+                        1200,
+                    );
+                if (index === 2)
+                    animateNumber(
+                        "totalValue",
+                        recapData.totalValue,
+                        1200,
+                        formatCurrency,
+                    );
+                if (index === 3) {
+                    animateNumber("issuedCount", recapData.issuedCount, 1000);
+                    animateNumber(
+                        "receivedCount",
+                        recapData.receivedCount,
+                        1000,
+                    );
+                }
+                if (index === 4)
+                    animateNumber(
+                        "busiestMonthCount",
+                        recapData.busiestMonthCount,
+                        1000,
+                    );
+                if (index === 5)
+                    animateNumber(
+                        "growthPercent",
+                        recapData.growthPercent,
+                        1200,
+                    );
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                showSlide(currentSlide);
+            }
+
+            // ===== KEYBOARD NAVIGATION =====
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "ArrowRight") nextSlide();
+                if (e.key === "ArrowLeft") prevSlide();
+            });
+
+            // // ===== INTERSECTION OBSERVER (for scroll-triggered animations) =====
+            // const observerOptions = {
+            //     threshold: 0.5,
+            // };
+
+            // const observer = new IntersectionObserver((entries) => {
+            //     entries.forEach((entry) => {
+            //         if (entry.isIntersecting) {
+            //             entry.target.classList.add("active");
+            //         }
+            //     });
+            // }, observerOptions);
+
+            // slides.forEach((slide) => observer.observe(slide));
+
+            // ===== CREATE PARTICLE BACKGROUND =====
+            function createParticles() {
+                const particleBg = document.getElementById("particleBg");
+                const particleCount = 50;
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement("div");
+                    particle.className = "particle";
+                    particle.style.left = Math.random() * 100 + "%";
+                    particle.style.animationDelay = Math.random() * 15 + "s";
+                    particle.style.animationDuration =
+                        Math.random() * 10 + 10 + "s";
+                    particleBg.appendChild(particle);
+                }
+            }
+
+            // ===== INITIALIZE =====
+            createParticles();
+            updateUI();
+            showSlide(0);
+
+            // ===== EXAMPLE: Load data from external JSON (optional) =====
+            // Uncomment this if you want to load from external source
+            /*
+        fetch('recap-data.json')
+            .then(response => response.json())
+            .then(data => loadData(data))
+            .catch(error => console.error('Error loading data:', error));
+        */
+        </script>
+    </body>
+</html>
