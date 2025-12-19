@@ -22,10 +22,34 @@
                 box-sizing: border-box;
             }
 
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* Ẩn scrollbar cho html và body */
+            html {
+                overflow-x: hidden;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+
+            html::-webkit-scrollbar {
+                display: none;
+            }
+
             body {
                 font-family: "Plus Jakarta Sans", sans-serif;
                 overflow-x: hidden;
                 background: #667eea;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+
+            /* Ẩn scrollbar cho Chrome, Safari, Edge mới */
+            body::-webkit-scrollbar {
+                display: none;
             }
 
             /* Logo Header */
@@ -115,6 +139,13 @@
                 z-index: 2;
                 /* Bỏ padding-top comment cũ */
                 margin: auto; /* Đảm bảo center nhưng không bị logo che */
+            }
+
+            /* tránh các element (tables/list) đè đan xen với navigation dots */
+            @media (max-width: 768px) {
+                .container {
+                    padding: 0 12px 0 12px;
+                }
             }
 
             h1 {
@@ -545,11 +576,131 @@
                 max-width: 500px;
             }
 
-            /* Slide 4 - Growth */
+            /* Slide 4: Growth */
             .slide-4 {
-                background: linear-gradient(135deg, #ff9068 0%, #fd746c 100%);
+                background: linear-gradient(135deg, #9177be 0%, #6d30d6 100%);
             }
 
+            .slide-4 .container {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                justify-content: center;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+
+            .slide-4 h2 {
+                margin-bottom: 30px;
+                text-align: center;
+                font-size: 2.2rem;
+                color: white;
+                text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Layout ngang cho desktop */
+            .growth-layout {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 50px;
+                flex-wrap: wrap;
+                margin: 20px 0;
+                padding: 0 10px 0 30px;
+            }
+
+            /* Hình ảnh growth */
+            .growth-image-container {
+                flex: 0 0 auto;
+                max-width: 280px;
+            }
+
+            .growth-image-container img {
+                width: 100%;
+                height: auto;
+                filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.2));
+                transform: scale(1);
+                transition: transform 0.3s ease;
+            }
+
+            .growth-image-container img:hover {
+                transform: scale(1.05);
+            }
+
+            /* Phần số liệu */
+            .growth-stats {
+                flex: 1;
+                min-width: 300px;
+                text-align: center;
+            }
+
+            .number-container {
+                display: flex;
+                align-items: baseline;
+                justify-content: center;
+                gap: 8px;
+                margin-bottom: 10px;
+            }
+
+            .big-number {
+                font-size: 5.5rem;
+                font-weight: 900;
+                color: white;
+                text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                line-height: 1;
+            }
+
+            .percent-sign {
+                font-size: 2.8rem;
+                font-weight: 700;
+                color: white;
+                opacity: 0.9;
+            }
+
+            .stats-label {
+                font-size: 1.3rem;
+                color: white;
+                margin-bottom: 8px;
+                font-weight: 500;
+            }
+
+            .stats-subtext {
+                font-size: 1.1rem;
+                color: rgba(255, 255, 255, 0.85);
+                margin-bottom: 15px;
+            }
+
+            /* Badge thông tin bổ sung */
+            .stats-badge {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 12px 20px;
+                border-radius: 15px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(5px);
+                display: inline-block;
+                margin-top: 10px;
+            }
+
+            .stats-badge span {
+                font-size: 1rem;
+                color: rgba(255, 255, 255, 0.9);
+            }
+
+            .stats-badge strong {
+                color: white;
+                font-weight: 700;
+            }
+
+            /* Subtitle */
+            .growth-subtitle {
+                margin-top: 30px;
+                text-align: center;
+                font-size: 1.2rem;
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 500;
+            }
+
+            /* Animation cho growth arrow */
             .growth-arrow {
                 font-size: 5rem;
                 color: #10b981;
@@ -569,6 +720,136 @@
                 }
                 50% {
                     transform: translateY(-15px);
+                }
+            }
+
+            /* ===== RESPONSIVE MOBILE ===== */
+            @media (max-width: 768px) {
+                .slide-4 .container {
+                    justify-content: flex-start;
+                    padding-top: 40px;
+                    height: auto;
+                    min-height: 100vh;
+                    overflow-y: auto;
+                }
+
+                .slide-4 h2 {
+                    font-size: 1.8rem;
+                    margin-bottom: 20px;
+                    margin-top: 10px;
+                }
+
+                /* Mobile: chuyển thành layout dọc */
+                .growth-layout {
+                    flex-direction: column;
+                    gap: 30px;
+                    margin: 10px 0;
+                    width: 100%;
+                }
+
+                .growth-image-container {
+                    max-width: 220px;
+                    margin: 0 auto;
+                    order: 2; /* Đưa ảnh xuống dưới trên mobile */
+                }
+
+                .growth-image-container img {
+                    max-width: 200px;
+                }
+
+                .growth-stats {
+                    min-width: 100%;
+                    order: 1; /* Đưa số liệu lên trên trên mobile */
+                }
+
+                /* Điều chỉnh kích thước số */
+                .big-number {
+                    font-size: 4rem;
+                }
+
+                .percent-sign {
+                    font-size: 2rem;
+                }
+
+                .stats-label {
+                    font-size: 1.1rem;
+                }
+
+                .stats-subtext {
+                    font-size: 1rem;
+                }
+
+                .stats-badge {
+                    padding: 10px 16px;
+                    font-size: 0.9rem;
+                    width: 90%;
+                    max-width: 300px;
+                }
+
+                .growth-subtitle {
+                    margin-top: 25px;
+                    font-size: 1.1rem;
+                    padding: 0 10px;
+                    order: 3; /* Đưa subtitle xuống cuối */
+                }
+
+                /* Giảm padding để không bị tràn */
+                .slide-4 .container {
+                    padding-bottom: 40px;
+                }
+            }
+
+            /* Mobile nhỏ hơn */
+            @media (max-width: 480px) {
+                .slide-4 h2 {
+                    font-size: 1.6rem;
+                    margin-bottom: 15px;
+                }
+
+                .big-number {
+                    font-size: 3.5rem;
+                }
+
+                .percent-sign {
+                    font-size: 1.8rem;
+                }
+
+                .growth-image-container {
+                    max-width: 180px;
+                }
+
+                .growth-image-container img {
+                    max-width: 160px;
+                }
+
+                .stats-badge {
+                    width: 100%;
+                    padding: 8px 14px;
+                }
+
+                .growth-subtitle {
+                    font-size: 1rem;
+                    margin-top: 20px;
+                }
+            }
+
+            /* Tablet */
+            @media (min-width: 769px) and (max-width: 1024px) {
+                .growth-layout {
+                    gap: 40px;
+                    padding: 0 0px 0 30px;
+                }
+
+                .growth-image-container {
+                    max-width: 240px;
+                }
+
+                .big-number {
+                    font-size: 4.5rem;
+                }
+
+                .percent-sign {
+                    font-size: 2.4rem;
                 }
             }
 
@@ -674,9 +955,9 @@
             .slide-7 {
                 background: linear-gradient(
                     135deg,
-                    #f78ca0 0%,
-                    #f9748f 55%,
-                    #fd868c 100%
+                    #a74173 0%,
+                    #bb3965 55%,
+                    #ec407a 100%
                 );
             }
 
@@ -841,20 +1122,20 @@
 
             /* Slide 6 - Top Invoices */
             .slide-6 {
-                background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%);
+                background: linear-gradient(135deg, #3eaacd 0%, #1b69d3 100%);
             }
 
-            /* SLide 8 */
+            /* Slide 8: Sản phẩm nổi bật */
             /* Slide 8: Sản phẩm nổi bật */
             .slide-8 {
                 background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             }
 
             .product-list {
-                display: flex;
-                flex-direction: column;
-                gap: 12px;
-                max-width: 700px;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); /* 2 cột trên desktop */
+                gap: 16px;
+                max-width: 1000px; /* Tăng width để chứa 2 cột */
                 margin: 0 auto;
             }
 
@@ -913,10 +1194,16 @@
                 color: rgba(255, 255, 255, 0.9);
             }
 
+            /* Responsive cho tablet và mobile */
             @media (max-width: 768px) {
-                .product-item {
-                    padding: 14px 16px;
+                .product-list {
+                    grid-template-columns: 1fr; /* 1 cột trên mobile */
                     gap: 12px;
+                }
+
+                .product-item {
+                    padding: 14px 10px;
+                    gap: 10px;
                 }
 
                 .product-rank {
@@ -936,7 +1223,7 @@
 
             /* Slide 9: Sản phẩm giá trị nhất */
             .slide-9 {
-                background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+                background: linear-gradient(135deg, #e3a53c 0%, #c96f09 100%);
             }
 
             .product-value-list {
@@ -2056,7 +2343,7 @@
         <div class="slide slide-4" data-slide="4">
             <div
                 class="float-icon"
-                style="top: 12%; left: 10%; animation-delay: 0s"
+                style="top: 22%; left: 10%; animation-delay: 0s"
             >
                 <svg
                     width="80"
@@ -2121,7 +2408,7 @@
 
             <div
                 class="float-icon"
-                style="top: 58%; left: 7%; animation-delay: 2.2s"
+                style="top: 70%; left: 7%; animation-delay: 2.2s"
             >
                 <svg
                     width="68"
@@ -2203,42 +2490,36 @@
             </div>
 
             <div class="container">
-                <h2>Tăng trưởng vượt bậc</h2>
-                <!-- SVG Growth Chart -->
-                <!--<svg
-                    class="growth-icon"
-                    viewBox="0 0 200 200"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <polyline
-                        points="20,150 60,120 100,80 140,50 180,20"
-                        fill="none"
-                        stroke="#10b981"
-                        stroke-width="8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                    <circle cx="20" cy="150" r="10" fill="#10b981" />
-                    <circle cx="60" cy="120" r="10" fill="#10b981" />
-                    <circle cx="100" cy="80" r="10" fill="#10b981" />
-                    <circle cx="140" cy="50" r="10" fill="#10b981" />
-                    <circle cx="180" cy="20" r="10" fill="#10b981" />
-                    <path d="M 180 20 L 165 25 L 175 35 Z" fill="#10b981" />
-                </svg>-->
+                <h2>Tăng trưởng doanh thu ấn tượng</h2>
 
-                <!-- Center Icon - Ảnh growth -->
-                <div class="center-image">
-                    <img
-                        src="./assets/images/growth.png"
-                        alt="Growth"
-                        class="center-image"
-                    />
+                <div class="growth-layout">
+                    <!-- Hình ảnh bên trái -->
+                    <div class="growth-image-container">
+                        <img src="./assets/images/growth.png" alt="Growth" />
+                    </div>
+
+                    <!-- Số liệu bên phải -->
+                    <div class="growth-stats">
+                        <div class="number-container">
+                            <div class="big-number" data-target="42">0</div>
+                            <span class="percent-sign">%</span>
+                        </div>
+
+                        <p class="stats-label">tăng trưởng doanh thu</p>
+                        <p class="stats-subtext">so với năm 2024</p>
+
+                        <!-- Thông tin bổ sung -->
+                        <div class="stats-badge">
+                            <span
+                                >Tương đương <strong>15.8 tỷ VNĐ</strong></span
+                            >
+                        </div>
+                    </div>
                 </div>
 
-                <div class="big-number" data-target="34">0</div>
-                <p class="label">% tăng trưởng so với năm 2024</p>
-                <p class="subtitle" style="margin-top: 30px">
-                    Xu hướng phát triển tích cực!
+                <!-- Subtitle -->
+                <p class="growth-subtitle">
+                    Doanh thu tăng trưởng mạnh mẽ, vượt kỳ vọng!
                 </p>
             </div>
         </div>
@@ -2500,10 +2781,32 @@
             </div>
 
             <div class="container">
-                <h2>Hóa đơn giá trị cao nhất</h2>
-                <p class="subtitle" style="margin-bottom: 25px">
-                    🏆 Doanh nghiệp của bạn đứng <strong>Top 5</strong> về giá
-                    trị hóa đơn trên hệ thống EasyInvoice
+                <h2 style="margin: 30px auto 30px auto">
+                    Hóa đơn giá trị cao nhất
+                </h2>
+                <p class="subtitle" style="margin-bottom: 35px">
+                    🏆 Hoá đơn của bạn đứng
+                    <strong
+                        style="
+                            font-size: 1.3em;
+                            font-weight: 900;
+                            /*color: #7042af;*/
+                            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                            padding: 2px 8px;
+                            border-radius: 6px;
+                            /*background: linear-gradient(
+                                135deg,
+                                #fee2f0 0%,
+                                #b7a0fb 100%
+                            );*/
+                            background: #e8ac08;
+                            display: inline-block;
+                            transform: scale(1.05);
+                            margin: 0 10px 0 10px;
+                        "
+                        >Top 65</strong
+                    >
+                    về giá trị hóa đơn trên hệ thống EasyInvoice
                 </p>
 
                 <div class="invoice-list">
@@ -2518,59 +2821,11 @@
                             <div class="invoice-value">8.500.000.000 VNĐ</div>
                         </div>
                     </div>
-
-                    <div class="invoice-item visible">
-                        <div class="invoice-rank">🥈 #2</div>
-                        <div class="invoice-details">
-                            <div class="invoice-header">
-                                <span class="invoice-series">01GTKT0/001</span>
-                                <span class="invoice-number">0000098</span>
-                            </div>
-                            <div class="invoice-customer">Tập đoàn XYZ</div>
-                            <div class="invoice-value">6.200.000.000 VNĐ</div>
-                        </div>
-                    </div>
-
-                    <div class="invoice-item visible">
-                        <div class="invoice-rank">🥉 #3</div>
-                        <div class="invoice-details">
-                            <div class="invoice-header">
-                                <span class="invoice-series">01GTKT0/001</span>
-                                <span class="invoice-number">0000156</span>
-                            </div>
-                            <div class="invoice-customer">Doanh nghiệp DEF</div>
-                            <div class="invoice-value">5.800.000.000 VNĐ</div>
-                        </div>
-                    </div>
-
-                    <div class="invoice-item visible">
-                        <div class="invoice-rank">#4</div>
-                        <div class="invoice-details">
-                            <div class="invoice-header">
-                                <span class="invoice-series">01GTKT0/001</span>
-                                <span class="invoice-number">0000089</span>
-                            </div>
-                            <div class="invoice-customer">Công ty GHI</div>
-                            <div class="invoice-value">4.300.000.000 VNĐ</div>
-                        </div>
-                    </div>
-
-                    <div class="invoice-item visible">
-                        <div class="invoice-rank">#5</div>
-                        <div class="invoice-details">
-                            <div class="invoice-header">
-                                <span class="invoice-series">01GTKT0/001</span>
-                                <span class="invoice-number">0000234</span>
-                            </div>
-                            <div class="invoice-customer">Tổng công ty JKL</div>
-                            <div class="invoice-value">3.900.000.000 VNĐ</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 7: Top Customers -->
+        <!-- Slide 7: Những người đồng hành quan trọng -->
         <div class="slide slide-7" data-slide="7">
             <!-- Particles -->
             <div class="particles">
@@ -2625,8 +2880,11 @@
             </div>
 
             <div class="container">
-                <h2>Top 5 Đối tác</h2>
-                <p class="subtitle">Những người đồng hành quan trọng nhất</p>
+                <h2>Những người đồng hành quan trọng nhất</h2>
+                <p class="subtitle">
+                    "Khách hàng không chỉ là con số - họ là câu chuyện thành
+                    công của chúng ta"
+                </p>
                 <div class="customer-list">
                     <div class="customer-item">
                         <span class="customer-rank">#1</span>
