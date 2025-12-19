@@ -4,6 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>EasyInvoice - Nhìn Lại Hành Trình 2025</title>
+        <!-- Thêm các link Google Fonts vào đây -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+            rel="stylesheet"
+        />
         <link
             href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
             rel="stylesheet"
@@ -80,7 +87,7 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                padding: 40px 20px;
+                padding: 100px 20px 100px 20px; /* Thêm padding top để tránh logo */
                 position: relative;
             }
 
@@ -106,13 +113,14 @@
                 text-align: center;
                 position: relative;
                 z-index: 2;
-                /*padding-top: 50px;*/
+                /* Bỏ padding-top comment cũ */
+                margin: auto; /* Đảm bảo center nhưng không bị logo che */
             }
 
             h1 {
-                font-size: clamp(2.5rem, 6vw, 4.5rem);
+                font-size: clamp(2.4rem, 5vw, 4.2rem);
                 font-weight: 800;
-                margin-bottom: 20px;
+                margin-bottom: 18px;
                 color: white;
                 text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             }
@@ -120,15 +128,30 @@
             h2 {
                 font-size: clamp(3rem, 4vw, 3rem);
                 font-weight: 1000;
-                margin-bottom: 18px;
+                margin-bottom: 16px;
                 color: white;
             }
 
+            /* mobile responsive */
+            @media (max-width: 768px) {
+                h2 {
+                    font-size: clamp(2.2rem, 5vw, 2.5rem);
+                    font-weight: 900; /* Giảm nhẹ font-weight trên mobile cho đẹp */
+                }
+            }
+
             .subtitle {
-                font-size: clamp(1rem, 2.5vw, 1.6rem);
+                font-size: clamp(1rem, 2.5vw, 1.3rem);
                 color: rgba(255, 255, 255, 0.9);
                 /*margin-bottom: 40px;*/
                 font-weight: 400;
+            }
+
+            /* mobile responsive */
+            @media (max-width: 768px) {
+                .subtitle {
+                    font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+                }
             }
 
             .big-number {
@@ -166,7 +189,7 @@
             .stat-card {
                 background: rgba(255, 255, 255, 0.15);
                 backdrop-filter: blur(10px);
-                padding: 40px 30px;
+                padding: 34px 30px;
                 border-radius: 30px;
                 border: 2px solid rgba(255, 255, 255, 0.2);
                 transform: translateY(50px);
@@ -180,21 +203,21 @@
             }
 
             .stat-number {
-                font-size: clamp(2.5rem, 5vw, 3.5rem);
+                font-size: clamp(2.6rem, 5vw, 3.5rem);
                 font-weight: 800;
                 color: #fff;
                 margin-bottom: 10px;
             }
 
             .stat-label {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
                 color: rgba(255, 255, 255, 0.9);
                 font-weight: 600;
             }
 
             .navigation {
                 position: fixed;
-                bottom: 26px;
+                bottom: 22px;
                 left: 50%;
                 transform: translateX(-50%);
                 display: flex;
@@ -204,7 +227,7 @@
 
             .nav-btn {
                 background: rgba(255, 255, 255, 0.25);
-                backdrop-filter: blur(10px);
+                backdrop-filter: blur(7px);
                 border: 2px solid rgba(255, 255, 255, 0.3);
                 color: white;
                 padding: 15px 35px;
@@ -522,8 +545,8 @@
                 max-width: 500px;
             }
 
-            /* Slide 6 - Growth */
-            .slide-6 {
+            /* Slide 4 - Growth */
+            .slide-4 {
                 background: linear-gradient(135deg, #ff9068 0%, #fd746c 100%);
             }
 
@@ -546,6 +569,104 @@
                 }
                 50% {
                     transform: translateY(-15px);
+                }
+            }
+
+            /* Slide 6: Top Invoices */
+            /* Invoice List Styles */
+            .invoice-list {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+
+            .invoice-item {
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                padding: 18px 20px;
+                border-radius: 20px;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                display: flex;
+                align-items: center;
+                gap: 18px;
+                transform: translateX(-100px);
+                opacity: 0;
+                /*opacity: 1;*/
+                transition: all 0.5s ease;
+            }
+
+            .invoice-item.visible {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            .invoice-rank {
+                font-size: 1.8rem;
+                font-weight: 800;
+                min-width: 50px;
+                text-align: center;
+                color: #fff;
+            }
+
+            .invoice-details {
+                flex: 1;
+                text-align: left;
+            }
+
+            .invoice-header {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                margin-bottom: 6px;
+            }
+
+            .invoice-series {
+                font-size: 0.95rem;
+                font-weight: 600;
+                color: rgba(255, 255, 255, 0.9);
+                background: rgba(255, 255, 255, 0.15);
+                padding: 3px 10px;
+                border-radius: 8px;
+            }
+
+            .invoice-number {
+                font-size: 0.95rem;
+                font-weight: 700;
+                color: white;
+            }
+
+            .invoice-customer {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: white;
+                margin-bottom: 5px;
+            }
+
+            .invoice-value {
+                font-size: 1.3rem;
+                font-weight: 800;
+                color: #ffd93d;
+            }
+
+            @media (max-width: 768px) {
+                .invoice-list {
+                    max-width: 100%;
+                }
+
+                .invoice-item {
+                    padding: 15px;
+                    gap: 12px;
+                }
+
+                .invoice-rank {
+                    font-size: 1.5rem;
+                    min-width: 40px;
+                }
+
+                .invoice-value {
+                    font-size: 1.1rem;
                 }
             }
 
@@ -718,96 +839,376 @@
                 }
             }
 
-            /* Slide 8 - Top Invoices */
-            .slide-8 {
+            /* Slide 6 - Top Invoices */
+            .slide-6 {
                 background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%);
             }
 
-            /* Slide 9 - Badges */
-            .slide-9 {
-                background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+            /* SLide 8 */
+            /* Slide 8: Sản phẩm nổi bật */
+            .slide-8 {
+                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                justify-content: flex-start;
+                padding-top: 120px;
+                padding-bottom: 120px;
             }
 
-            .badge-container {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 30px;
-                margin: 40px 0;
+            .product-list {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                max-width: 700px;
+                margin: 0 auto;
             }
 
-            .badge {
-                background: rgba(255, 255, 255, 0.3);
+            .product-item {
+                background: rgba(255, 255, 255, 0.2);
                 backdrop-filter: blur(10px);
-                padding: 40px 20px;
-                border-radius: 30px;
-                border: 3px solid rgba(255, 255, 255, 0.4);
-                transform: scale(0);
-                transition: transform 0.6s
-                    cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                padding: 16px 20px;
+                border-radius: 20px;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                display: flex;
+                align-items: center;
+                gap: 18px;
+                transform: translateX(-100px);
+                opacity: 0;
+                transition: all 0.5s ease;
             }
 
-            .badge.visible {
-                transform: scale(1);
+            .product-item.visible {
+                transform: translateX(0);
+                opacity: 1;
             }
 
-            .badge-icon {
-                width: 80px;
-                height: 80px;
-                margin: 0 auto 15px;
+            .product-rank {
+                font-size: 1.5rem;
+                font-weight: 800;
+                color: white;
+                min-width: 70px;
+                text-align: center;
             }
 
-            .badge-title {
-                font-size: 1.3rem;
+            .product-info {
+                flex: 1;
+                text-align: left;
+            }
+
+            .product-name {
+                font-size: 1.15rem;
                 font-weight: 700;
                 color: white;
                 margin-bottom: 8px;
             }
 
-            .badge-desc {
+            .product-quantity-badge {
+                display: inline-flex;
+                align-items: center;
                 font-size: 1rem;
-                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+                color: white;
+                background: rgba(255, 255, 255, 0.2);
+                padding: 6px 14px;
+                border-radius: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.3);
             }
 
-            /* Slide 10 - Story & Tips */
-            .slide-10 {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            .product-quantity-badge svg {
+                color: rgba(255, 255, 255, 0.9);
             }
 
-            .story-box {
-                background: rgba(255, 255, 255, 0.25);
-                backdrop-filter: blur(10px);
-                padding: 30px 30px;
-                border-radius: 35px;
-                border: 3px solid rgba(255, 255, 255, 0.3);
-                margin: 30px 0;
+            @media (max-width: 768px) {
+                .slide-8 {
+                    padding-top: 100px;
+                    padding-bottom: 160px;
+                }
+
+                .product-item {
+                    padding: 14px 16px;
+                    gap: 12px;
+                }
+
+                .product-rank {
+                    font-size: 1.3rem;
+                    min-width: 60px;
+                }
+
+                .product-name {
+                    font-size: 1.05rem;
+                }
+
+                .product-quantity-badge {
+                    font-size: 0.95rem;
+                    padding: 5px 12px;
+                }
+            }
+
+            /* Slide 9: Sản phẩm giá trị nhất */
+            .slide-9 {
+                background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            }
+
+            .product-value-list {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
                 max-width: 700px;
-                margin: 30px auto;
+                margin: 0 auto;
             }
 
-            .tips-list {
-                text-align: left;
-                margin: 30px auto;
-                max-width: 600px;
-            }
-
-            .tip-item {
+            .product-value-item {
                 background: rgba(255, 255, 255, 0.2);
                 backdrop-filter: blur(10px);
-                padding: 20px 25px;
+                padding: 18px 20px;
                 border-radius: 20px;
-                margin-bottom: 15px;
-                border: 2px solid rgba(255, 255, 255, 0.25);
-                font-size: 1.1rem;
-                color: white;
-                font-weight: 600;
-                transform: translateX(50px);
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                display: flex;
+                align-items: center;
+                gap: 18px;
+                transform: translateX(-100px);
                 opacity: 0;
                 transition: all 0.5s ease;
             }
 
-            .tip-item.visible {
+            .product-value-item.visible {
                 transform: translateX(0);
                 opacity: 1;
+            }
+
+            .product-value-stats {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .product-name {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: white;
+            }
+
+            .product-rank {
+                font-size: 1.5rem;
+                font-weight: 800;
+                color: #fff;
+                width: 40px;
+                text-align: center;
+            }
+
+            .value-quantity {
+                font-size: 0.95rem;
+                font-weight: 600;
+                color: rgba(255, 255, 255, 0.9);
+                background: rgba(255, 255, 255, 0.15);
+                padding: 4px 12px;
+                border-radius: 10px;
+            }
+
+            .value-separator {
+                font-size: 1.2rem;
+                color: rgba(255, 255, 255, 0.6);
+            }
+
+            .value-total {
+                font-size: 1.1rem;
+                font-weight: 800;
+                color: #ffd93d;
+            }
+
+            @media (max-width: 768px) {
+                .product-value-item {
+                    padding: 15px;
+                }
+
+                .product-value-stats {
+                    gap: 8px;
+                }
+
+                .value-total {
+                    font-size: 1rem;
+                }
+            }
+
+            /* Slide 10: Lời cảm ơn (Slide kết) */
+            /* Import các font đẹp từ Google Fonts */
+            @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Dancing+Script:wght@700&family=Great+Vibes&family=Cinzel:wght@700;900&display=swap");
+
+            .slide-10 {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            /* Thank You Typography Container */
+            .thank-you-typography {
+                margin-bottom: 35px;
+                position: relative;
+            }
+
+            /* Main Thank You Text - Dancing Script Style (Mặc định) */
+            .thank-you-text {
+                font-family: "Dancing Script", cursive;
+                font-size: clamp(5rem, 12vw, 8rem);
+                font-weight: 700;
+                color: #fff;
+                text-shadow:
+                    0 2px 10px rgba(0, 0, 0, 0.3),
+                    0 4px 20px rgba(0, 0, 0, 0.2),
+                    0 0 40px rgba(255, 255, 255, 0.1);
+                margin-bottom: 15px;
+                letter-spacing: 0.02em;
+                line-height: 1;
+                animation: fadeInScale 1s ease-out;
+            }
+
+            /* Thêm class dancing-style để rõ ràng */
+            .thank-you-text.dancing-style {
+                font-family: "Dancing Script", cursive;
+                font-size: clamp(3rem, 10vw, 6rem);
+                font-weight: 700;
+                letter-spacing: 0.02em;
+                color: #fff;
+            }
+
+            /* Thank you box */
+            .thank-you-box {
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                padding: 35px 40px;
+                border-radius: 30px;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                margin: 30px auto;
+                max-width: 700px;
+                animation: fadeInUp 0.8s ease-out 0.6s backwards;
+            }
+
+            /* Future message */
+            .future-message {
+                margin-top: 45px;
+                padding: 30px;
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(10px);
+                border-radius: 25px;
+                border: 2px solid rgba(255, 255, 255, 0.25);
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+                animation: fadeInUp 1s ease-out 0.9s backwards;
+            }
+
+            /* Animation cho icon SVG */
+            .future-message svg {
+                animation: checkmarkPop 0.5s ease-out 0.8s backwards;
+            }
+
+            @keyframes checkmarkPop {
+                0% {
+                    opacity: 0;
+                    transform: scale(0);
+                }
+                50% {
+                    transform: scale(1.1);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .thank-you-text {
+                    font-size: clamp(3.5rem, 10vw, 6rem);
+                }
+
+                .thank-you-text.dancing-style {
+                    font-size: clamp(3.5rem, 10vw, 6rem);
+                }
+
+                .thank-you-subtitle {
+                    font-size: clamp(1rem, 3vw, 1.3rem);
+                }
+
+                .thank-you-typography::before,
+                .thank-you-typography::after {
+                    font-size: 1.5rem;
+                }
+
+                .thank-you-typography::before {
+                    left: 5%;
+                }
+
+                .thank-you-typography::after {
+                    right: 5%;
+                }
+
+                .thank-you-box {
+                    padding: 25px 20px;
+                    margin: 20px auto;
+                }
+
+                .future-message {
+                    margin-top: 30px;
+                    padding: 25px 20px;
+                }
+
+                .future-message svg {
+                    width: 50px;
+                    height: 50px;
+                    margin-bottom: 12px;
+                }
+
+                .future-message h3 {
+                    font-size: 1.4rem;
+                }
+
+                .future-message p {
+                    font-size: 1rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .thank-you-text {
+                    font-size: clamp(3rem, 9vw, 4.5rem);
+                    margin-bottom: 10px;
+                    line-height: 1.1;
+                }
+
+                .thank-you-text.dancing-style {
+                    font-size: clamp(3.5rem, 9vw, 4.5rem);
+                    line-height: 1.1;
+                }
+
+                .thank-you-subtitle {
+                    font-size: clamp(0.9rem, 3vw, 1.1rem);
+                }
+
+                .thank-you-typography::before,
+                .thank-you-typography::after {
+                    display: none;
+                }
+
+                .thank-you-box {
+                    padding: 20px 15px;
+                    margin: 15px auto;
+                }
+
+                .thank-you-box .subtitle {
+                    font-size: 1.05rem !important;
+                    line-height: 1.6 !important;
+                }
+
+                .future-message {
+                    padding: 20px 15px;
+                    margin-top: 25px;
+                }
+
+                .future-message svg {
+                    width: 45px;
+                    height: 45px;
+                }
+
+                .future-message h3 {
+                    font-size: 1.3rem;
+                }
             }
 
             /* New: Center Icons for Slide 4 & 5 */
@@ -973,9 +1374,15 @@
                 }
             }
 
+            /* Mobile responsive - ngăn nav bị che bởi Bottom Bar của trình duyệt/mobile */
             @media (max-width: 768px) {
                 .navigation {
-                    bottom: 20px;
+                    /* Ưu tiên safe-area nếu trình duyệt hỗ trợ */
+                    bottom: max(70px, env(safe-area-inset-bottom, 22px));
+
+                    /* Hoặc cộng thêm safe-area */
+                    /* bottom: calc(22px + env(safe-area-inset-bottom, 0px)); */
+
                     gap: 10px;
                 }
 
@@ -1238,7 +1645,7 @@
                     />
                 </div>
 
-                <h1>EasyInvoice</h1>
+                <h1>Công ty TNHH ABC</h1>
                 <h2 style="font-size: clamp(1.5rem, 4vw, 3rem)">
                     EasyInvoice - Nhìn Lại Hành Trình 2025
                 </h2>
@@ -1248,7 +1655,8 @@
             </div>
         </div>
 
-        <div class="slide slide-2" data-slide="1">
+        <!-- Slide 2: Total invoices -->
+        <div class="slide slide-2" data-slide="2">
             <!-- Floating Icons -->
             <div
                 class="float-icon"
@@ -1468,7 +1876,7 @@
         </div>
 
         <!-- Slide 3: Revenue -->
-        <div class="slide slide-3" data-slide="2">
+        <div class="slide slide-3" data-slide="3">
             <!-- Floating Icons -->
             <div
                 class="float-icon"
@@ -1652,413 +2060,8 @@
             </div>
         </div>
 
-        <!-- Slide 4: Sent/Received -->
-        <div class="slide slide-4" data-slide="3">
-            <!-- Confetti Canvas -->
-            <!--<canvas class="confetti-canvas" id="confetti-canvas-1"></canvas>-->
-
-            <!-- Floating Icons - TikTok -->
-            <div
-                class="float-icon"
-                style="top: 10%; right: 8%; animation-delay: 0s"
-            >
-                <svg
-                    width="70"
-                    height="70"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <rect
-                        x="10"
-                        y="10"
-                        width="80"
-                        height="80"
-                        rx="18"
-                        fill="#fff"
-                    />
-                    <path
-                        d="M50 30 L50 60 C50 65 45 70 40 70 C35 70 30 65 30 60 C30 55 35 50 40 50 L40 40 C30 40 20 50 20 60 C20 70 30 80 40 80 C50 80 60 70 60 60 L60 40 C65 45 70 47 75 47 L75 37 C68 37 63 32 60 27"
-                        fill="#000"
-                    />
-                </svg>
-            </div>
-
-            <div
-                class="float-icon"
-                style="bottom: 15%; left: 10%; animation-delay: 1.5s"
-            >
-                <svg
-                    width="80"
-                    height="80"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <rect
-                        x="25"
-                        y="45"
-                        width="50"
-                        height="35"
-                        rx="5"
-                        fill="#fff"
-                    />
-                    <rect
-                        x="35"
-                        y="35"
-                        width="30"
-                        height="12"
-                        rx="3"
-                        fill="#1a9ad6"
-                    />
-                    <circle cx="40" cy="60" r="6" fill="#9b59b6" />
-                    <circle cx="60" cy="60" r="6" fill="#9b59b6" />
-                    <line
-                        x1="25"
-                        y1="80"
-                        x2="15"
-                        y2="90"
-                        stroke="#fff"
-                        stroke-width="4"
-                        stroke-linecap="round"
-                    />
-                    <line
-                        x1="75"
-                        y1="80"
-                        x2="85"
-                        y2="90"
-                        stroke="#fff"
-                        stroke-width="4"
-                        stroke-linecap="round"
-                    />
-                </svg>
-            </div>
-
-            <div
-                class="float-icon"
-                style="top: 55%; left: 5%; animation-delay: 2.5s"
-            >
-                <svg
-                    width="65"
-                    height="65"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <rect
-                        x="25"
-                        y="35"
-                        width="50"
-                        height="40"
-                        rx="8"
-                        fill="#fff"
-                    />
-                    <rect
-                        x="35"
-                        y="25"
-                        width="30"
-                        height="15"
-                        rx="4"
-                        fill="#1a9ad6"
-                    />
-                    <line
-                        x1="40"
-                        y1="50"
-                        x2="60"
-                        y2="50"
-                        stroke="#9b59b6"
-                        stroke-width="3"
-                    />
-                    <line
-                        x1="40"
-                        y1="60"
-                        x2="55"
-                        y2="60"
-                        stroke="#9b59b6"
-                        stroke-width="3"
-                    />
-                </svg>
-            </div>
-
-            <!-- Center Icon - Ảnh giao dịch -->
-            <div class="center-image">
-                <img
-                    src="./assets/images/3d-render-house-bills-payment-online-invoice.png"
-                    alt="Hoạt động giao dịch"
-                    class="center-image"
-                />
-            </div>
-
-            <!-- Particles -->
-            <div class="particles">
-                <div
-                    class="particle"
-                    style="
-                        left: 10%;
-                        animation-delay: 0s;
-                        animation-duration: 12s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 25%;
-                        animation-delay: 2s;
-                        animation-duration: 10s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 40%;
-                        animation-delay: 4s;
-                        animation-duration: 14s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 60%;
-                        animation-delay: 1s;
-                        animation-duration: 11s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 75%;
-                        animation-delay: 3s;
-                        animation-duration: 13s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 85%;
-                        animation-delay: 5s;
-                        animation-duration: 9s;
-                    "
-                ></div>
-            </div>
-
-            <div class="container">
-                <h2>Hoạt động giao dịch</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" data-target="1623">0</div>
-                        <div class="stat-label">Hóa đơn phát hành</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" data-target="1224">0</div>
-                        <div class="stat-label">Hóa đơn nhận</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: Busiest Month -->
-        <div class="slide slide-5" data-slide="4">
-            <!-- Confetti Canvas -->
-            <!--<canvas class="confetti-canvas" id="confetti-canvas-2"></canvas>-->
-
-            <!-- Floating Icons - POS Machine -->
-            <div
-                class="float-icon"
-                style="top: 15%; right: 10%; animation-delay: 0s"
-            >
-                <svg
-                    width="85"
-                    height="85"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <rect
-                        x="20"
-                        y="25"
-                        width="60"
-                        height="50"
-                        rx="8"
-                        fill="#fff"
-                    />
-                    <rect
-                        x="30"
-                        y="35"
-                        width="40"
-                        height="25"
-                        rx="4"
-                        fill="#0891b2"
-                    />
-                    <rect
-                        x="35"
-                        y="65"
-                        width="10"
-                        height="5"
-                        rx="2"
-                        fill="#10b981"
-                    />
-                    <rect
-                        x="50"
-                        y="65"
-                        width="10"
-                        height="5"
-                        rx="2"
-                        fill="#10b981"
-                    />
-                    <rect
-                        x="65"
-                        y="65"
-                        width="5"
-                        height="5"
-                        rx="1"
-                        fill="#10b981"
-                    />
-                    <line
-                        x1="20"
-                        y1="75"
-                        x2="30"
-                        y2="85"
-                        stroke="#fff"
-                        stroke-width="3"
-                    />
-                </svg>
-            </div>
-
-            <div
-                class="float-icon"
-                style="bottom: 9%; left: 12%; animation-delay: 1.2s"
-            >
-                <svg
-                    width="70"
-                    height="70"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <rect
-                        x="25"
-                        y="25"
-                        width="50"
-                        height="50"
-                        rx="10"
-                        fill="#fff"
-                    />
-                    <path
-                        d="M40 45 L50 35 L60 45"
-                        stroke="#10b981"
-                        stroke-width="4"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                    <line
-                        x1="50"
-                        y1="35"
-                        x2="50"
-                        y2="60"
-                        stroke="#10b981"
-                        stroke-width="4"
-                        stroke-linecap="round"
-                    />
-                </svg>
-            </div>
-
-            <div
-                class="float-icon"
-                style="top: 50%; right: 5%; animation-delay: 2s"
-            >
-                <svg
-                    width="60"
-                    height="60"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <circle cx="50" cy="50" r="40" fill="#fff" />
-                    <path
-                        d="M35 50 L45 60 L65 40"
-                        stroke="#0891b2"
-                        stroke-width="6"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                </svg>
-            </div>
-
-            <!-- Particles -->
-            <div class="particles">
-                <div
-                    class="particle"
-                    style="
-                        left: 10%;
-                        animation-delay: 0s;
-                        animation-duration: 12s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 25%;
-                        animation-delay: 2s;
-                        animation-duration: 10s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 40%;
-                        animation-delay: 4s;
-                        animation-duration: 14s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 60%;
-                        animation-delay: 1s;
-                        animation-duration: 11s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 75%;
-                        animation-delay: 3s;
-                        animation-duration: 13s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 85%;
-                        animation-delay: 5s;
-                        animation-duration: 9s;
-                    "
-                ></div>
-            </div>
-
-            <div class="container">
-                <!-- Center Icon - Busy image -->
-                <div class="center-image">
-                    <img
-                        src="./assets/images/busy.png"
-                        alt="Tháng bận rộn nhất"
-                        class="center-image"
-                    />
-                </div>
-
-                <h2>Tháng bận rộn nhất</h2>
-                <div class="month-highlight">
-                    <div class="big-number" style="font-size: 4rem">
-                        Tháng 12
-                    </div>
-                    <p class="label">
-                        Với <span data-target="387">0</span> hóa đơn
-                    </p>
-                </div>
-                <p class="subtitle">
-                    Cuối năm là thời điểm bạn hoạt động mạnh mẽ nhất!
-                </p>
-            </div>
-        </div>
-
-        <!-- Slide 6: Growth -->
-        <div class="slide slide-6" data-slide="5">
+        <!-- Slide 4: Growth -->
+        <div class="slide slide-4" data-slide="4">
             <div
                 class="float-icon"
                 style="top: 12%; left: 10%; animation-delay: 0s"
@@ -2248,8 +2251,335 @@
             </div>
         </div>
 
+        <!-- Slide 5: Thời gian nổi bật -->
+        <div class="slide slide-5" data-slide="5">
+            <!-- Floating Icons -->
+            <div
+                class="float-icon"
+                style="top: 10%; left: 8%; animation-delay: 0s"
+            >
+                <svg
+                    width="70"
+                    height="70"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <circle cx="50" cy="50" r="40" fill="#fff" />
+                    <circle
+                        cx="50"
+                        cy="50"
+                        r="35"
+                        fill="none"
+                        stroke="#667eea"
+                        stroke-width="3"
+                    />
+                    <line
+                        x1="50"
+                        y1="50"
+                        x2="50"
+                        y2="25"
+                        stroke="#667eea"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                    />
+                    <line
+                        x1="50"
+                        y1="50"
+                        x2="65"
+                        y2="50"
+                        stroke="#764ba2"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                    />
+                    <circle cx="50" cy="50" r="4" fill="#667eea" />
+                </svg>
+            </div>
+
+            <div
+                class="float-icon"
+                style="bottom: 15%; right: 10%; animation-delay: 1.5s"
+            >
+                <svg
+                    width="75"
+                    height="75"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <rect
+                        x="20"
+                        y="25"
+                        width="60"
+                        height="60"
+                        rx="8"
+                        fill="#fff"
+                    />
+                    <line
+                        x1="30"
+                        y1="35"
+                        x2="70"
+                        y2="35"
+                        stroke="#667eea"
+                        stroke-width="2"
+                    />
+                    <circle cx="35" cy="50" r="3" fill="#764ba2" />
+                    <circle cx="50" cy="50" r="3" fill="#764ba2" />
+                    <circle cx="65" cy="50" r="3" fill="#764ba2" />
+                    <circle cx="35" cy="63" r="3" fill="#764ba2" />
+                    <circle cx="50" cy="63" r="3" fill="#764ba2" />
+                    <circle cx="65" cy="63" r="3" fill="#764ba2" />
+                    <circle cx="35" cy="76" r="3" fill="#764ba2" />
+                    <circle cx="50" cy="76" r="6" fill="#667eea" />
+                </svg>
+            </div>
+
+            <!-- Particles -->
+            <div class="particles">
+                <div
+                    class="particle"
+                    style="
+                        left: 10%;
+                        animation-delay: 0s;
+                        animation-duration: 12s;
+                    "
+                ></div>
+                <div
+                    class="particle"
+                    style="
+                        left: 25%;
+                        animation-delay: 2s;
+                        animation-duration: 10s;
+                    "
+                ></div>
+                <div
+                    class="particle"
+                    style="
+                        left: 40%;
+                        animation-delay: 4s;
+                        animation-duration: 14s;
+                    "
+                ></div>
+                <div
+                    class="particle"
+                    style="
+                        left: 60%;
+                        animation-delay: 1s;
+                        animation-duration: 11s;
+                    "
+                ></div>
+                <div
+                    class="particle"
+                    style="
+                        left: 75%;
+                        animation-delay: 3s;
+                        animation-duration: 13s;
+                    "
+                ></div>
+                <div
+                    class="particle"
+                    style="
+                        left: 85%;
+                        animation-delay: 5s;
+                        animation-duration: 9s;
+                    "
+                ></div>
+            </div>
+
+            <div class="container">
+                <!-- Center Icon - Clock/Calendar image -->
+                <div class="center-image">
+                    <!--<img
+                        src="./assets/images/calendar-time.png"
+                        alt="Thời gian nổi bật"
+                        class="center-image"
+                    />-->
+
+                    <img
+                        src="./assets/images/busy-month.png"
+                        alt="Thời gian nổi bật"
+                        class="center-image"
+                    />
+                </div>
+
+                <h2>Thời gian nổi bật</h2>
+                <div class="stats-grid" style="margin-top: 40px">
+                    <div class="stat-card" style="padding: 30px 25px">
+                        <div
+                            class="stat-label"
+                            style="margin-bottom: 15px; font-size: 1.1rem"
+                        >
+                            📅 Ngày xuất nhiều nhất
+                        </div>
+                        <div
+                            class="stat-number"
+                            style="font-size: 2.2rem; margin-bottom: 8px"
+                        >
+                            15/12/2025
+                        </div>
+                        <div
+                            style="
+                                font-size: 1rem;
+                                color: rgba(255, 255, 255, 0.85);
+                            "
+                        >
+                            <span data-target="45">0</span> hóa đơn
+                        </div>
+                    </div>
+                    <div class="stat-card" style="padding: 30px 25px">
+                        <div
+                            class="stat-label"
+                            style="margin-bottom: 15px; font-size: 1.1rem"
+                        >
+                            📆 Tháng xuất nhiều nhất
+                        </div>
+                        <div
+                            class="stat-number"
+                            style="font-size: 2.2rem; margin-bottom: 8px"
+                        >
+                            Tháng 12
+                        </div>
+                        <div
+                            style="
+                                font-size: 1rem;
+                                color: rgba(255, 255, 255, 0.85);
+                            "
+                        >
+                            <span data-target="387">0</span> hóa đơn
+                        </div>
+                    </div>
+                </div>
+                <p class="subtitle" style="margin-top: 30px">
+                    Những khoảnh khắc đáng nhớ trong hành trình của bạn!
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Top Invoices -->
+        <div class="slide slide-6" data-slide="6">
+            <!-- Particles giữ nguyên -->
+            <div class="particles">
+                <div
+                    class="particle"
+                    style="
+                        left: 10%;
+                        animation-delay: 0s;
+                        animation-duration: 12s;
+                    "
+                ></div>
+                <div
+                    class="particle"
+                    style="
+                        left: 25%;
+                        animation-delay: 2s;
+                        animation-duration: 10s;
+                    "
+                ></div>
+                <div
+                    class="particle"
+                    style="
+                        left: 40%;
+                        animation-delay: 4s;
+                        animation-duration: 14s;
+                    "
+                ></div>
+                <div
+                    class="particle"
+                    style="
+                        left: 60%;
+                        animation-delay: 1s;
+                        animation-duration: 11s;
+                    "
+                ></div>
+                <div
+                    class="particle"
+                    style="
+                        left: 75%;
+                        animation-delay: 3s;
+                        animation-duration: 13s;
+                    "
+                ></div>
+                <div
+                    class="particle"
+                    style="
+                        left: 85%;
+                        animation-delay: 5s;
+                        animation-duration: 9s;
+                    "
+                ></div>
+            </div>
+
+            <div class="container">
+                <h2>Hóa đơn giá trị cao nhất</h2>
+                <p class="subtitle" style="margin-bottom: 25px">
+                    🏆 Doanh nghiệp của bạn đứng <strong>Top 5</strong> về giá
+                    trị hóa đơn trên hệ thống EasyInvoice
+                </p>
+
+                <div class="invoice-list">
+                    <div class="invoice-item visible">
+                        <div class="invoice-rank">🥇 #1</div>
+                        <div class="invoice-details">
+                            <div class="invoice-header">
+                                <span class="invoice-series">01GTKT0/001</span>
+                                <span class="invoice-number">0000123</span>
+                            </div>
+                            <div class="invoice-customer">Công ty TNHH ABC</div>
+                            <div class="invoice-value">8.500.000.000 VNĐ</div>
+                        </div>
+                    </div>
+
+                    <div class="invoice-item visible">
+                        <div class="invoice-rank">🥈 #2</div>
+                        <div class="invoice-details">
+                            <div class="invoice-header">
+                                <span class="invoice-series">01GTKT0/001</span>
+                                <span class="invoice-number">0000098</span>
+                            </div>
+                            <div class="invoice-customer">Tập đoàn XYZ</div>
+                            <div class="invoice-value">6.200.000.000 VNĐ</div>
+                        </div>
+                    </div>
+
+                    <div class="invoice-item visible">
+                        <div class="invoice-rank">🥉 #3</div>
+                        <div class="invoice-details">
+                            <div class="invoice-header">
+                                <span class="invoice-series">01GTKT0/001</span>
+                                <span class="invoice-number">0000156</span>
+                            </div>
+                            <div class="invoice-customer">Doanh nghiệp DEF</div>
+                            <div class="invoice-value">5.800.000.000 VNĐ</div>
+                        </div>
+                    </div>
+
+                    <div class="invoice-item visible">
+                        <div class="invoice-rank">#4</div>
+                        <div class="invoice-details">
+                            <div class="invoice-header">
+                                <span class="invoice-series">01GTKT0/001</span>
+                                <span class="invoice-number">0000089</span>
+                            </div>
+                            <div class="invoice-customer">Công ty GHI</div>
+                            <div class="invoice-value">4.300.000.000 VNĐ</div>
+                        </div>
+                    </div>
+
+                    <div class="invoice-item visible">
+                        <div class="invoice-rank">#5</div>
+                        <div class="invoice-details">
+                            <div class="invoice-header">
+                                <span class="invoice-series">01GTKT0/001</span>
+                                <span class="invoice-number">0000234</span>
+                            </div>
+                            <div class="invoice-customer">Tổng công ty JKL</div>
+                            <div class="invoice-value">3.900.000.000 VNĐ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Slide 7: Top Customers -->
-        <div class="slide slide-7" data-slide="6">
+        <div class="slide slide-7" data-slide="7">
             <!-- Particles -->
             <div class="particles">
                 <div
@@ -2327,6 +2657,7 @@
                                 <path d="M2 12L12 17L22 12" />
                             </svg>
                         </div>
+                        <!-- Tên Công ty / doanh nghiệp -->
                         <div class="customer-info">
                             <div
                                 class="customer-name"
@@ -2433,8 +2764,57 @@
             </div>
         </div>
 
-        <!-- Slide 8: Top Invoices -->
-        <div class="slide slide-8" data-slide="7">
+        <!-- Slide 8: Sản phẩm nổi bật -->
+        <div class="slide slide-8" data-slide="8">
+            <!-- Floating Icons -->
+            <div
+                class="float-icon"
+                style="top: 12%; right: 8%; animation-delay: 0s"
+            >
+                <svg
+                    width="75"
+                    height="75"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <rect
+                        x="20"
+                        y="30"
+                        width="60"
+                        height="50"
+                        rx="8"
+                        fill="#fff"
+                    />
+                    <rect
+                        x="35"
+                        y="20"
+                        width="30"
+                        height="15"
+                        rx="3"
+                        fill="#10b981"
+                    />
+                    <circle cx="40" cy="55" r="8" fill="#667eea" />
+                    <circle cx="60" cy="55" r="8" fill="#667eea" />
+                </svg>
+            </div>
+
+            <div
+                class="float-icon"
+                style="bottom: 15%; left: 10%; animation-delay: 1.5s"
+            >
+                <svg
+                    width="70"
+                    height="70"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M50 20 L60 40 L80 45 L65 60 L68 80 L50 70 L32 80 L35 60 L20 45 L40 40 Z"
+                        fill="#FFD93D"
+                    />
+                </svg>
+            </div>
+
             <!-- Particles -->
             <div class="particles">
                 <div
@@ -2488,54 +2868,157 @@
             </div>
 
             <div class="container">
-                <h2>Top 5 Hóa đơn giá trị cao</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-label" style="margin-bottom: 10px">
-                            🥇 #1
-                        </div>
-                        <div class="stat-number" style="font-size: 2rem">
-                            8.5 tỷ
+                <h2>Sản phẩm nổi bật</h2>
+                <p class="subtitle" style="margin-bottom: 25px">
+                    ⭐ Top 5 sản phẩm bán chạy nhất năm 2025
+                </p>
+
+                <div class="product-list">
+                    <div class="product-item visible">
+                        <div class="product-rank">🥇 #1</div>
+                        <div class="product-info">
+                            <div class="product-name">
+                                Máy tính xách tay Dell XPS 15
+                            </div>
+                            <div class="product-quantity-badge">
+                                <svg
+                                    style="
+                                        width: 18px;
+                                        height: 18px;
+                                        display: inline-block;
+                                        vertical-align: middle;
+                                        margin-right: 5px;
+                                    "
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M20 7H4V4H20V7ZM20 11H4V9H20V11ZM13 15H4V13H13V15ZM13 19H4V17H13V19Z"
+                                    />
+                                </svg>
+                                <span data-target="1234">0</span> sản phẩm
+                            </div>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-label" style="margin-bottom: 10px">
-                            🥈 #2
-                        </div>
-                        <div class="stat-number" style="font-size: 2rem">
-                            6.2 tỷ
+
+                    <div class="product-item visible">
+                        <div class="product-rank">🥈 #2</div>
+                        <div class="product-info">
+                            <div class="product-name">
+                                Điện thoại iPhone 15 Pro Max
+                            </div>
+                            <div class="product-quantity-badge">
+                                <svg
+                                    style="
+                                        width: 18px;
+                                        height: 18px;
+                                        display: inline-block;
+                                        vertical-align: middle;
+                                        margin-right: 5px;
+                                    "
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M20 7H4V4H20V7ZM20 11H4V9H20V11ZM13 15H4V13H13V15ZM13 19H4V17H13V19Z"
+                                    />
+                                </svg>
+                                <span data-target="987">0</span> sản phẩm
+                            </div>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-label" style="margin-bottom: 10px">
-                            🥉 #3
-                        </div>
-                        <div class="stat-number" style="font-size: 2rem">
-                            5.8 tỷ
+
+                    <div class="product-item visible">
+                        <div class="product-rank">🥉 #3</div>
+                        <div class="product-info">
+                            <div class="product-name">
+                                Tai nghe Sony WH-1000XM5
+                            </div>
+                            <div class="product-quantity-badge">
+                                <svg
+                                    style="
+                                        width: 18px;
+                                        height: 18px;
+                                        display: inline-block;
+                                        vertical-align: middle;
+                                        margin-right: 5px;
+                                    "
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M20 7H4V4H20V7ZM20 11H4V9H20V11ZM13 15H4V13H13V15ZM13 19H4V17H13V19Z"
+                                    />
+                                </svg>
+                                <span data-target="756">0</span> sản phẩm
+                            </div>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-label" style="margin-bottom: 10px">
-                            #4
-                        </div>
-                        <div class="stat-number" style="font-size: 2rem">
-                            4.3 tỷ
+
+                    <div class="product-item visible">
+                        <div class="product-rank">#4</div>
+                        <div class="product-info">
+                            <div class="product-name">
+                                Màn hình LG UltraWide 34"
+                            </div>
+                            <div class="product-quantity-badge">
+                                <svg
+                                    style="
+                                        width: 18px;
+                                        height: 18px;
+                                        display: inline-block;
+                                        vertical-align: middle;
+                                        margin-right: 5px;
+                                    "
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M20 7H4V4H20V7ZM20 11H4V9H20V11ZM13 15H4V13H13V15ZM13 19H4V17H13V19Z"
+                                    />
+                                </svg>
+                                <span data-target="623">0</span> sản phẩm
+                            </div>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-label" style="margin-bottom: 10px">
-                            #5
-                        </div>
-                        <div class="stat-number" style="font-size: 2rem">
-                            3.9 tỷ
+
+                    <div class="product-item visible">
+                        <div class="product-rank">#5</div>
+                        <div class="product-info">
+                            <div class="product-name">
+                                Bàn phím cơ Keychron K8
+                            </div>
+                            <div class="product-quantity-badge">
+                                <svg
+                                    style="
+                                        width: 18px;
+                                        height: 18px;
+                                        display: inline-block;
+                                        vertical-align: middle;
+                                        margin-right: 5px;
+                                    "
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M20 7H4V4H20V7ZM20 11H4V9H20V11ZM13 15H4V13H13V15ZM13 19H4V17H13V19Z"
+                                    />
+                                </svg>
+                                <span data-target="541">0</span> sản phẩm
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 9: Badges -->
-        <div class="slide slide-9" data-slide="8">
+        <!-- Slide 9: Sản phẩm giá trị nhất -->
+        <div class="slide slide-9" data-slide="9">
             <!-- Particles -->
             <div class="particles">
                 <div
@@ -2589,99 +3072,95 @@
             </div>
 
             <div class="container">
-                <h2>Thành tựu của bạn</h2>
-                <p class="subtitle">Những cột mốc đáng tự hào!</p>
-                <div class="badge-container">
-                    <div class="badge">
-                        <svg
-                            class="badge-icon"
-                            viewBox="0 0 100 100"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <circle cx="50" cy="50" r="45" fill="#667eea" />
-                            <path
-                                d="M50 20 L60 40 L80 45 L65 60 L68 80 L50 70 L32 80 L35 60 L20 45 L40 40 Z"
-                                fill="#FFD93D"
-                            />
-                        </svg>
-                        <div class="badge-title">Siêu tốc độ</div>
-                        <div class="badge-desc">
-                            Xử lý trung bình 8 hóa đơn/ngày
+                <h2>Sản phẩm giá trị nhất</h2>
+                <p class="subtitle" style="margin-bottom: 30px">
+                    Top 5 sản phẩm tạo doanh thu cao nhất
+                </p>
+
+                <div class="product-value-list">
+                    <div class="product-value-item visible">
+                        <div class="product-rank">🥇 #1</div>
+                        <div class="product-info">
+                            <div class="product-name">
+                                Máy tính xách tay Dell XPS 15
+                            </div>
+                            <div class="product-value-stats">
+                                <span class="value-quantity"
+                                    >Đã bán 1,234 SP</span
+                                >
+                                <span class="value-separator">•</span>
+                                <span class="value-total">45.6 tỷ VNĐ</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="badge">
-                        <svg
-                            class="badge-icon"
-                            viewBox="0 0 100 100"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <circle cx="50" cy="50" r="45" fill="#10b981" />
-                            <path
-                                d="M30 50 L45 65 L70 35"
-                                stroke="#fff"
-                                stroke-width="8"
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                        </svg>
-                        <div class="badge-title">Chính xác</div>
-                        <div class="badge-desc">98.5% hóa đơn không lỗi</div>
-                    </div>
-                    <div class="badge">
-                        <svg
-                            class="badge-icon"
-                            viewBox="0 0 100 100"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <circle cx="50" cy="50" r="45" fill="#f093fb" />
-                            <circle cx="50" cy="50" r="30" fill="#fff" />
-                            <circle cx="50" cy="50" r="5" fill="#f093fb" />
-                            <line
-                                x1="50"
-                                y1="50"
-                                x2="50"
-                                y2="25"
-                                stroke="#f093fb"
-                                stroke-width="3"
-                                stroke-linecap="round"
-                            />
-                            <line
-                                x1="50"
-                                y1="50"
-                                x2="65"
-                                y2="50"
-                                stroke="#f093fb"
-                                stroke-width="3"
-                                stroke-linecap="round"
-                            />
-                        </svg>
-                        <div class="badge-title">Tiết kiệm thời gian</div>
-                        <div class="badge-desc">
-                            Đã tiết kiệm 432 giờ làm việc
+
+                    <div class="product-value-item visible">
+                        <div class="product-rank">🥈 #2</div>
+                        <div class="product-info">
+                            <div class="product-name">
+                                Điện thoại iPhone 15 Pro Max
+                            </div>
+                            <div class="product-value-stats">
+                                <span class="value-quantity"
+                                    >Đã bán 987 SP</span
+                                >
+                                <span class="value-separator">•</span>
+                                <span class="value-total">38.2 tỷ VNĐ</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="badge">
-                        <svg
-                            class="badge-icon"
-                            viewBox="0 0 100 100"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <circle cx="50" cy="50" r="45" fill="#FF6B6B" />
-                            <path
-                                d="M50 25 L70 45 L60 45 L60 75 L40 75 L40 45 L30 45 Z"
-                                fill="#fff"
-                            />
-                        </svg>
-                        <div class="badge-title">Hiệu quả</div>
-                        <div class="badge-desc">Giảm 75% thời gian xử lý</div>
+
+                    <div class="product-value-item visible">
+                        <div class="product-rank">🥉 #3</div>
+                        <div class="product-info">
+                            <div class="product-name">
+                                Máy chủ Dell PowerEdge R740
+                            </div>
+                            <div class="product-value-stats">
+                                <span class="value-quantity"
+                                    >Đã bán 156 SP</span
+                                >
+                                <span class="value-separator">•</span>
+                                <span class="value-total">28.9 tỷ VNĐ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-value-item visible">
+                        <div class="product-rank">#4</div>
+                        <div class="product-info">
+                            <div class="product-name">
+                                Màn hình LG UltraWide 34"
+                            </div>
+                            <div class="product-value-stats">
+                                <span class="value-quantity"
+                                    >Đã bán 623 SP</span
+                                >
+                                <span class="value-separator">•</span>
+                                <span class="value-total">15.7 tỷ VNĐ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-value-item visible">
+                        <div class="product-rank">#5</div>
+                        <div class="product-info">
+                            <div class="product-name">Camera Canon EOS R5</div>
+                            <div class="product-value-stats">
+                                <span class="value-quantity"
+                                    >Đã bán 234 SP</span
+                                >
+                                <span class="value-separator">•</span>
+                                <span class="value-total">12.3 tỷ VNĐ</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 10: Story & Tips -->
-        <div class="slide slide-10" data-slide="9">
+        <!-- Slide 10: Lời cảm ơn (Slide kết) -->
+        <div class="slide slide-10" data-slide="10">
             <!-- Particles -->
             <div class="particles">
                 <div
@@ -2735,155 +3214,66 @@
             </div>
 
             <div class="container">
-                <h2 style="margin-top: 50px">Năm 2025 của bạn</h2>
-                <div class="story-box">
-                    <p class="subtitle" style="margin-bottom: 0">
-                        2025 là năm bạn xử lý tài chính cực kỳ hiệu quả! Bạn đã
-                        tiết kiệm <strong>432 giờ</strong> nhờ EasyInvoice, tăng
-                        trưởng <strong>34%</strong>, và xây dựng mối quan hệ
-                        vững chắc với <strong>156 đối tác</strong>.
+                <!-- Typography Thank You -->
+                <div class="thank-you-typography">
+                    <h1 class="thank-you-text dancing-style">Cảm ơn bạn</h1>
+                    <!--<div class="thank-you-subtitle">Cảm ơn bạn</div>-->
+                </div>
+
+                <div class="thank-you-box">
+                    <p
+                        class="subtitle"
+                        style="font-size: 1.2rem; line-height: 1.8; margin: 0"
+                    >
+                        Gửi lời cảm ơn chân thành tới quý khách hàng đã luôn tin
+                        tưởng và đồng hành cùng
+                        <strong>EasyInvoice</strong> trong năm qua. Cùng nhau,
+                        chúng ta đã vượt qua nhiều thử thách để có được những
+                        thành tựu ấn tượng này.
                     </p>
                 </div>
-                <h2 style="margin-top: 20px; font-size: 2rem">
-                    Gợi ý cho năm 2026
-                </h2>
-                <div class="tips-list">
-                    <div class="tip-item">
-                        <svg
-                            style="
-                                width: 24px;
-                                height: 24px;
-                                display: inline-block;
-                                vertical-align: middle;
-                                margin-right: 10px;
-                            "
-                            viewBox="0 0 24 24"
-                            fill="#FFD93D"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <circle cx="12" cy="12" r="5" />
-                            <path
-                                d="M12 1V5M12 19V23M23 12H19M5 12H1M20.5 20.5L17.5 17.5M6.5 6.5L3.5 3.5M20.5 3.5L17.5 6.5M6.5 17.5L3.5 20.5"
-                                stroke="#FFD93D"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                            />
-                        </svg>
-                        Tự động hóa nhiều hơn để tăng hiệu suất
-                    </div>
-                    <div class="tip-item">
-                        <svg
-                            style="
-                                width: 24px;
-                                height: 24px;
-                                display: inline-block;
-                                vertical-align: middle;
-                                margin-right: 10px;
-                            "
-                            viewBox="0 0 24 24"
-                            fill="#4ade80"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <polyline
-                                points="2,12 6,18 12,12 18,18 22,12"
-                                fill="none"
-                                stroke="#4ade80"
-                                stroke-width="2"
-                            />
-                            <line
-                                x1="12"
-                                y1="2"
-                                x2="12"
-                                y2="12"
-                                stroke="#4ade80"
-                                stroke-width="2"
-                            />
-                        </svg>
-                        Mở rộng mạng lưới đối tác mới
-                    </div>
-                    <div class="tip-item">
-                        <svg
-                            style="
-                                width: 24px;
-                                height: 24px;
-                                display: inline-block;
-                                vertical-align: middle;
-                                margin-right: 10px;
-                            "
-                            viewBox="0 0 24 24"
-                            fill="#667eea"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M12 2L15.5 8.5L22 9.5L17 14.5L18 21L12 18L6 21L7 14.5L2 9.5L8.5 8.5L12 2Z"
-                            />
-                        </svg>
-                        Tối ưu quy trình thanh toán
-                    </div>
-                    <div class="tip-item">
-                        <svg
-                            style="
-                                width: 24px;
-                                height: 24px;
-                                display: inline-block;
-                                vertical-align: middle;
-                                margin-right: 10px;
-                            "
-                            viewBox="0 0 24 24"
-                            fill="#f093fb"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <rect x="3" y="3" width="18" height="18" rx="2" />
-                            <circle cx="12" cy="12" r="4" fill="#fff" />
-                        </svg>
-                        Khám phá tính năng mới của EasyInvoice
-                    </div>
-                </div>
-                <p class="subtitle" style="margin-top: 40px; font-size: 1.5rem">
+
+                <div class="future-message">
                     <svg
-                        style="
-                            width: 40px;
-                            height: 40px;
-                            display: inline-block;
-                            vertical-align: middle;
-                        "
+                        style="width: 60px; height: 60px; margin-bottom: 15px"
                         viewBox="0 0 100 100"
                         xmlns="http://www.w3.org/2000/svg"
                     >
-                        <circle cx="50" cy="50" r="45" fill="#FFD93D" />
-                        <path
-                            d="M35 40 Q50 30 65 40"
-                            stroke="#FF6B6B"
-                            stroke-width="5"
-                            fill="none"
-                            stroke-linecap="round"
+                        <circle
+                            cx="50"
+                            cy="50"
+                            r="45"
+                            fill="rgba(255,255,255,0.2)"
                         />
-                        <circle cx="38" cy="45" r="5" fill="#FF6B6B" />
-                        <circle cx="62" cy="45" r="5" fill="#FF6B6B" />
-                    </svg>
-                    Chúc mừng năm mới 2026!
-                    <svg
-                        style="
-                            width: 40px;
-                            height: 40px;
-                            display: inline-block;
-                            vertical-align: middle;
-                        "
-                        viewBox="0 0 100 100"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <circle cx="50" cy="50" r="45" fill="#4ECDC4" />
                         <path
-                            d="M35 55 Q50 65 65 55"
+                            d="M30 50 L45 65 L70 40"
                             stroke="#fff"
-                            stroke-width="5"
+                            stroke-width="6"
                             fill="none"
                             stroke-linecap="round"
+                            stroke-linejoin="round"
                         />
-                        <circle cx="38" cy="45" r="5" fill="#fff" />
-                        <circle cx="62" cy="45" r="5" fill="#fff" />
                     </svg>
-                </p>
+                    <h3
+                        style="
+                            font-size: 1.6rem;
+                            font-weight: 700;
+                            color: white;
+                            margin-bottom: 12px;
+                        "
+                    >
+                        Hẹn gặp lại năm 2026! 🎉
+                    </h3>
+                    <p
+                        style="
+                            font-size: 1.1rem;
+                            color: rgba(255, 255, 255, 0.9);
+                            margin: 0;
+                        "
+                    >
+                        Cùng nhau viết tiếp câu chuyện thành công
+                    </p>
+                </div>
             </div>
         </div>
 
