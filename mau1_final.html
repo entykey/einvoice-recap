@@ -67,6 +67,11 @@
                 padding: 15px 30px;
                 border-radius: 50px;
                 border: 2px solid rgba(255, 255, 255, 0.25);
+
+                /* Fix lòi mép: Giới hạn chiều rộng tối đa */
+                max-width: calc(100vw - 30px); /* Trừ đi padding hai bên */
+                box-sizing: border-box;
+                overflow: hidden; /* Quan trọng: không cho border-radius tràn ra */
             }
 
             .logo-item {
@@ -103,6 +108,38 @@
                 font-size: 0.9rem;
                 font-weight: 700;
                 color: white;
+            }
+
+            /* Chỉ áp dụng full width trên mobile */
+            @media (max-width: 768px) {
+                .logo-header {
+                    max-width: calc(100vw - 30px);
+                    padding: 12px 20px;
+                    gap: 15px;
+                }
+
+                .logo-item img {
+                    max-height: 28px;
+                }
+
+                .logo-divider {
+                    height: 25px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .logo-header {
+                    gap: 12px;
+                    max-width: calc(100vw - 20px);
+                }
+
+                .logo-item img {
+                    max-height: 24px;
+                }
+
+                .logo-divider {
+                    height: 20px;
+                }
             }
 
             .slide {
@@ -1131,105 +1168,484 @@
                 }
             }
 
-            /* Slide 6: Top Invoices */
-            /* Invoice List Styles */
-            .invoice-list {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-                max-width: 700px;
-                margin: 0 auto;
+            /* ===== SLIDE 6 - TOP INVOICES ===== */
+            /* Slide background */
+            .slide-6 {
+                background: linear-gradient(135deg, #3eaacd 0%, #1b69d3 100%);
             }
 
-            .invoice-item {
-                background: rgba(255, 255, 255, 0.2);
-                backdrop-filter: blur(10px);
-                padding: 18px 20px;
-                border-radius: 20px;
-                border: 2px solid rgba(255, 255, 255, 0.3);
-                display: flex;
-                align-items: center;
-                gap: 18px;
-                transform: translateX(-100px);
-                opacity: 0;
-                /*opacity: 1;*/
-                transition: all 0.5s ease;
-            }
-
-            .invoice-item.visible {
-                transform: translateX(0);
-                opacity: 1;
-            }
-
-            .invoice-rank {
-                font-size: 1.8rem;
-                font-weight: 800;
-                min-width: 50px;
+            /* Header Styles */
+            .slide6-header {
                 text-align: center;
-                color: #fff;
+                margin-bottom: 35px;
             }
 
-            .invoice-details {
-                flex: 1;
-                text-align: left;
+            .slide6-title {
+                font-size: clamp(2rem, 4vw, 2.8rem);
+                font-weight: 800;
+                color: white;
+                margin-bottom: 25px;
+                text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             }
 
+            /* Ranking Info */
+            .ranking-info {
+                /*background: rgba(255, 255, 255, 0.25);*/
+                /*backdrop-filter: blur(10px);*/
+                /*border-radius: 20px;*/
+                /*border: 2px solid rgba(255, 255, 255, 0.3);*/
+                /*padding: 20px 30px;*/
+                /*display: inline-block;*/
+                margin: 0 auto;
+                /*max-width: 600px;
+                width: 100%;*/
+            }
+
+            .ranking-text {
+                font-size: clamp(1rem, 2vw, 1.15rem);
+                color: white;
+                margin: 0;
+                line-height: 1.6;
+                text-align: center;
+            }
+
+            .ranking-badge {
+                font-size: clamp(1.3rem, 3vw, 1.5rem);
+                font-weight: 900;
+                color: #ffd93d;
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                padding: 4px 12px;
+                border-radius: 10px;
+                background: rgba(255, 217, 61, 0.2);
+                display: inline-block;
+                margin: 0 8px;
+                white-space: nowrap;
+            }
+
+            /* Invoice Showcase */
+            .invoice-showcase {
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(15px);
+                border-radius: 30px;
+                border: 3px solid rgba(255, 255, 255, 0.4);
+                padding: 35px 40px;
+                max-width: 750px;
+                margin: 0 auto;
+                box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+                position: relative;
+                overflow: hidden;
+            }
+
+            /* Trophy Decoration */
+            .trophy-decoration {
+                position: absolute;
+                top: -20px;
+                right: 30px;
+                font-size: 5rem;
+                opacity: 0.15;
+                transform: rotate(15deg);
+                pointer-events: none;
+                z-index: 1;
+            }
+
+            /* Invoice Header */
             .invoice-header {
-                display: flex;
-                gap: 10px;
-                align-items: center;
-                margin-bottom: 6px;
+                display: block; /* Thay vì flex space-between */
+                margin-bottom: 25px;
+                padding-bottom: 20px;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+                position: relative;
+                z-index: 2;
+                text-align: left; /* Quan trọng: căn trái toàn bộ */
+                width: 100%;
             }
 
-            .invoice-series {
+            .invoice-title-section {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .medal-icon {
+                font-size: 3rem;
+                line-height: 1;
+                animation: bounce 2s infinite;
+            }
+
+            .invoice-label {
                 font-size: 0.95rem;
+                color: rgba(255, 255, 255, 0.8);
+                margin-bottom: 5px;
                 font-weight: 600;
-                color: rgba(255, 255, 255, 0.9);
-                background: rgba(255, 255, 255, 0.15);
-                padding: 3px 10px;
-                border-radius: 8px;
+            }
+
+            .invoice-numbers {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .invoice-code {
+                font-size: clamp(1rem, 2.5vw, 1.1rem);
+                font-weight: 700;
+                color: white;
+                background: rgba(255, 255, 255, 0.2);
+                padding: 6px 14px;
+                border-radius: 10px;
+                white-space: nowrap;
             }
 
             .invoice-number {
-                font-size: 0.95rem;
+                font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+                font-weight: 800;
+                color: white;
+                white-space: nowrap;
+            }
+
+            /* Customer Info */
+            .customer-info {
+                margin-bottom: 25px;
+                position: relative;
+                z-index: 2;
+                text-align: center; /* Quan trọng: căn giữa */
+                width: 100%;
+            }
+
+            .info-label {
+                font-size: clamp(0.85rem, 2vw, 0.95rem);
+                color: rgba(255, 255, 255, 0.8);
+                margin-bottom: 8px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .customer-name {
+                font-size: clamp(1.2rem, 3vw, 1.4rem);
+                font-weight: 700;
+                color: white;
+                line-height: 1.4;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+
+            /* Value Showcase */
+            .value-showcase {
+                background: linear-gradient(
+                    135deg,
+                    rgba(255, 217, 61, 0.25),
+                    rgba(255, 193, 7, 0.25)
+                );
+                border-radius: 20px;
+                padding: 25px 30px;
+                text-align: center;
+                border: 2px solid rgba(255, 217, 61, 0.4);
+                position: relative;
+                z-index: 2;
+                margin-bottom: 20px;
+            }
+
+            .value-label {
+                font-size: clamp(0.9rem, 2vw, 1rem);
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            .value-amount {
+                font-size: clamp(1rem, 2vw, 1rem);
+                font-weight: 900;
+                color: #ffd93d;
+                text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                word-break: break-word;
+                overflow-wrap: break-word;
+                hyphens: auto;
+                /* Đảm bảo số tiền không bị tràn */
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .value-currency {
+                font-size: clamp(1.1rem, 2.5vw, 1.3rem);
                 font-weight: 700;
                 color: white;
             }
 
-            .invoice-customer {
-                font-size: 1.1rem;
-                font-weight: 600;
-                color: white;
-                margin-bottom: 5px;
+            /* Sparkle Effects */
+            .sparkle {
+                position: absolute;
+                font-size: 2rem;
+                opacity: 0.3;
+                animation: sparkle 3s infinite;
+                pointer-events: none;
+                z-index: 1;
             }
 
-            .invoice-value {
-                font-size: 1.3rem;
-                font-weight: 800;
-                color: #ffd93d;
+            .sparkle-1 {
+                bottom: 20px;
+                left: 30px;
+                font-size: 2rem;
             }
 
+            .sparkle-2 {
+                top: 40px;
+                left: 40px;
+                font-size: 1.5rem;
+                animation-delay: 1s;
+            }
+
+            /* Animations */
+            @keyframes bounce {
+                0%,
+                100% {
+                    transform: translateY(0) scale(1);
+                }
+                50% {
+                    transform: translateY(-10px) scale(1.1);
+                }
+            }
+
+            @keyframes sparkle {
+                0%,
+                100% {
+                    opacity: 0.2;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 0.5;
+                    transform: scale(1.2);
+                }
+            }
+
+            /* ===== RESPONSIVE DESIGN ===== */
+
+            /* Tablet */
+            @media (max-width: 1024px) {
+                .invoice-showcase {
+                    padding: 30px 35px;
+                    margin: 0 20px;
+                }
+
+                .trophy-decoration {
+                    font-size: 4rem;
+                    right: 20px;
+                }
+            }
+
+            /* Mobile - Ngăn overflow số tiền */
             @media (max-width: 768px) {
-                .invoice-list {
-                    max-width: 100%;
+                .slide6-header {
+                    margin-bottom: 25px;
                 }
 
-                .invoice-item {
-                    padding: 15px;
-                    gap: 12px;
+                .slide6-title {
+                    margin-bottom: 20px;
+                    font-size: 1.8rem;
                 }
 
-                .invoice-rank {
+                .ranking-info {
+                    padding: 18px 25px;
+                    border-radius: 18px;
+                }
+
+                .ranking-text {
+                    font-size: 1.05rem;
+                    line-height: 1.5;
+                }
+
+                .ranking-badge {
+                    margin: 8px 0;
+                    display: block;
+                    width: fit-content;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                .invoice-showcase {
+                    padding: 25px;
+                    border-radius: 25px;
+                    border-width: 2px;
+                    margin: 0 15px;
+                }
+
+                .trophy-decoration {
+                    font-size: 3rem;
+                    top: -15px;
+                    right: 15px;
+                }
+
+                .invoice-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 15px;
+                    padding-bottom: 15px;
+                    margin-bottom: 20px;
+                }
+
+                .invoice-title-section {
+                    width: 100%;
+                }
+
+                .invoice-numbers {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 8px;
+                }
+
+                .invoice-code,
+                .invoice-number {
+                    width: 100%;
+                    text-align: center;
+                }
+
+                .value-showcase {
+                    padding: 20px 25px;
+                    margin-bottom: 10px;
+                }
+
+                .value-amount {
+                    font-size: clamp(1.6rem, 8vw, 2.2rem);
+                    /* Thêm line-height cho mobile */
+                    line-height: 1.3;
+                    padding: 0 10px;
+                }
+
+                .sparkle-1 {
+                    bottom: 15px;
+                    left: 15px;
                     font-size: 1.5rem;
-                    min-width: 40px;
                 }
 
-                .invoice-value {
+                .sparkle-2 {
+                    top: 30px;
+                    left: 25px;
+                    font-size: 1.2rem;
+                }
+            }
+
+            /* Small Mobile (đặc biệt quan trọng cho số tiền) */
+            @media (max-width: 480px) {
+                .slide6-title {
+                    font-size: 1.6rem;
+                    margin-bottom: 15px;
+                }
+
+                .ranking-info {
+                    padding: 15px 20px;
+                    border-radius: 15px;
+                }
+
+                .ranking-text {
+                    font-size: 0.95rem;
+                }
+
+                .ranking-badge {
+                    font-size: 1.2rem;
+                    padding: 3px 10px;
+                }
+
+                .invoice-showcase {
+                    padding: 20px;
+                    margin: 0 10px;
+                    border-radius: 20px;
+                }
+
+                .trophy-decoration {
+                    font-size: 2.5rem;
+                    top: -10px;
+                    right: 10px;
+                }
+
+                .medal-icon {
+                    font-size: 2.5rem;
+                }
+
+                .invoice-code,
+                .invoice-number {
+                    font-size: 1rem;
+                    padding: 5px 10px;
+                }
+
+                .customer-name {
+                    font-size: 1.2rem;
+                }
+
+                .value-showcase {
+                    padding: 18px 20px;
+                    border-radius: 15px;
+                }
+
+                .value-amount {
+                    font-size: 1.8rem;
+                    /* Tối ưu cho số tiền rất dài */
+                    word-break: break-all;
+                    letter-spacing: -0.5px;
+                    font-weight: 800;
+                    padding: 0 5px;
+                }
+
+                .value-currency {
                     font-size: 1.1rem;
+                }
+
+                /* Ẩn hiệu ứng sparkle trên mobile nhỏ để tiết kiệm không gian */
+                .sparkle-1,
+                .sparkle-2 {
+                    display: none;
+                }
+            }
+
+            /* Extra Small Mobile (điện thoại nhỏ) */
+            @media (max-width: 360px) {
+                .value-amount {
+                    font-size: 1.6rem;
+                    /* Chia thành nhiều dòng nếu cần */
+                    line-height: 1.4;
+                    word-break: break-word;
+                    hyphens: auto;
+                }
+
+                .invoice-numbers {
+                    flex-direction: column;
+                    gap: 8px;
+                }
+
+                .invoice-code,
+                .invoice-number {
+                    text-align: center;
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+
+                .ranking-text br {
+                    display: none; /* Gộp thành 1 dòng trên mobile rất nhỏ */
+                }
+            }
+
+            /* Landscape mode */
+            @media (max-height: 600px) and (orientation: landscape) {
+                .slide6-header {
+                    margin-bottom: 20px;
+                }
+
+                .invoice-showcase {
+                    padding: 20px 25px;
+                }
+
+                .value-showcase {
+                    padding: 15px 20px;
+                }
+
+                .value-amount {
+                    font-size: 2rem;
                 }
             }
 
             /* Slide 7 - Top Customers */
+            /* Slide 7 - Top Customers - New Design */
             .slide-7 {
                 background: linear-gradient(
                     135deg,
@@ -1239,171 +1655,236 @@
                 );
             }
 
-            .customer-list {
+            /* Top Customer List Styling */
+            .top-customer-list {
                 display: flex;
                 flex-direction: column;
-                gap: 12px;
-                max-width: 600px;
-                margin: 30px auto;
+                gap: 18px;
+                max-width: 800px;
+                margin: 0 auto;
             }
 
-            .customer-item {
-                background: rgba(255, 255, 255, 0.25);
+            .top-customer-item {
+                background: rgba(255, 255, 255, 0.15);
                 backdrop-filter: blur(10px);
-                padding: 10px 20px;
-                border-radius: 25px;
+                border-radius: 20px;
+                padding: 22px 25px;
+                border: 2px solid rgba(255, 255, 255, 0.2);
                 display: flex;
                 align-items: center;
-                gap: 18px;
-                border: 2px solid rgba(255, 255, 255, 0.3);
-                transform: translateX(-100px);
+                gap: 20px;
+                transition: all 0.3s ease;
+                transform: translateX(-50px);
                 opacity: 0;
-                transition: all 0.5s ease;
-                position: relative;
-                overflow: hidden;
             }
 
-            .customer-item.visible {
+            .top-customer-item.visible {
                 transform: translateX(0);
                 opacity: 1;
             }
 
-            .customer-avatar {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+            .top-customer-item:hover {
+                transform: translateY(-5px);
+                background: rgba(255, 255, 255, 0.2);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Rank Styling */
+            .customer-rank-new {
                 font-size: 1.8rem;
-                flex-shrink: 0;
-                background: white;
-                position: relative;
-            }
-
-            .customer-avatar svg {
-                width: 35px;
-                height: 35px;
-            }
-
-            .customer-info {
-                flex: 1;
-                text-align: left;
-            }
-
-            .customer-name {
-                font-size: 1.3rem;
-                font-weight: 700;
-                color: white;
-                margin-bottom: 5px;
-            }
-
-            .customer-count {
-                font-size: 1rem;
-                color: rgba(255, 255, 255, 0.8);
-            }
-
-            .customer-rank {
-                font-size: 1.5rem;
-                font-weight: 800;
-                color: #fff;
-                width: 40px;
+                font-weight: 900;
+                min-width: 70px;
                 text-align: center;
+                color: white;
+                text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             }
 
-            /* CSS cho ảnh vương miện trên avatar */
-            .crown-badge {
-                position: absolute;
-                top: -20px;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 10;
-                width: 40px; /* Điều chỉnh kích thước theo ảnh của bạn */
-                height: 40px; /* Điều chỉnh kích thước theo ảnh của bạn */
-                animation: crownFloat 2s ease-in-out infinite;
+            .top-customer-gold .customer-rank-new {
+                color: #ffd700;
+                animation: glowGold 2s infinite;
             }
 
-            .crown-image {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
-                transform: scale(1.2); /* Phóng to nhẹ nếu cần */
-                z-index: 2;
+            .top-customer-silver .customer-rank-new {
+                color: #c0c0c0;
             }
 
-            @keyframes crownFloat {
+            .top-customer-bronze .customer-rank-new {
+                color: #cd7f32;
+            }
+
+            @keyframes glowGold {
                 0%,
                 100% {
-                    transform: translateX(-50%) translateY(0);
+                    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
                 }
                 50% {
-                    transform: translateX(-50%) translateY(-5px);
+                    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
                 }
             }
 
-            /* Avatar top 1 có position relative */
-            .customer-avatar.top-1 {
-                position: relative;
+            /* Customer Info Styling */
+            .customer-info-new {
+                flex: 1;
+            }
+
+            .customer-name-new {
+                font-size: 1.4rem;
+                font-weight: 800;
+                color: white;
+                margin-bottom: 8px;
                 display: flex;
                 align-items: center;
-                justify-content: center;
+                gap: 10px;
+                flex-wrap: wrap;
             }
 
-            /* Vương miện nhỏ bên cạnh tên */
-            .crown-icon-name {
-                display: inline-block;
-                margin-left: 8px;
-                font-size: 1.2em;
-                animation: crownTwinkle 1.5s infinite;
-                vertical-align: middle;
+            .crown-icon-inline,
+            .star-icon-inline,
+            .trophy-icon-inline {
+                font-size: 1.3rem;
+                animation: bounceIcon 2s infinite;
             }
 
-            @keyframes crownTwinkle {
+            .crown-icon-inline {
+                color: #ffd700;
+            }
+
+            .star-icon-inline {
+                color: #c0c0c0;
+            }
+
+            .trophy-icon-inline {
+                color: #cd7f32;
+            }
+
+            @keyframes bounceIcon {
                 0%,
                 100% {
-                    opacity: 1;
-                    transform: scale(1);
+                    transform: translateY(0);
                 }
                 50% {
-                    opacity: 0.8;
-                    transform: scale(1.1);
+                    transform: translateY(-5px);
                 }
             }
 
-            /* Hoặc nếu bạn muốn chỉ hiển thị ảnh vương miện trên avatar */
-            .customer-avatar.top-1::before {
-                content: "";
-                position: absolute;
-                top: -15px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 40px;
-                height: 40px;
-                background-image: url("PATH_TO_YOUR_CROWN_IMAGE");
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-                z-index: 10;
-                animation: badgeBounce 2s infinite;
+            /* Customer Meta */
+            .customer-meta {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                margin-bottom: 8px;
+                flex-wrap: wrap;
             }
 
-            @keyframes badgeBounce {
-                0%,
-                100% {
-                    transform: translateX(-50%) scale(1);
+            .customer-taxcode,
+            .customer-invoice-count {
+                font-size: 0.95rem;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+                background: rgba(255, 255, 255, 0.1);
+                padding: 4px 12px;
+                border-radius: 8px;
+            }
+
+            .value-separator {
+                color: rgba(255, 255, 255, 0.5);
+                font-weight: 700;
+            }
+
+            /* Total Value */
+            .customer-total-value {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-top: 8px;
+            }
+
+            .value-label {
+                font-size: 0.95rem;
+                color: rgba(255, 255, 255, 0.8);
+                font-weight: 600;
+            }
+
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                .top-customer-list {
+                    gap: 15px;
                 }
-                50% {
-                    transform: translateX(-50%) scale(1.1);
+
+                .top-customer-item {
+                    padding: 18px 20px;
+                    gap: 15px;
+                }
+
+                .customer-rank-new {
+                    font-size: 1.5rem;
+                    min-width: 60px;
+                }
+
+                .customer-name-new {
+                    font-size: 1.2rem;
+                }
+
+                .customer-meta {
+                    gap: 8px;
+                }
+
+                .customer-taxcode,
+                .customer-invoice-count {
+                    font-size: 0.9rem;
+                    padding: 3px 10px;
+                }
+
+                .value-amount {
+                    font-size: 1.1rem;
+                }
+
+                .customer-summary {
+                    margin-top: 30px;
+                    padding: 20px 25px;
+                }
+
+                .customer-summary p {
+                    font-size: 1rem;
                 }
             }
 
-            /* Slide 6 - Top Invoices */
-            .slide-6 {
-                background: linear-gradient(135deg, #3eaacd 0%, #1b69d3 100%);
+            @media (max-width: 480px) {
+                .top-customer-item {
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 12px;
+                    padding: 16px;
+                }
+
+                .customer-rank-new {
+                    margin-bottom: 5px;
+                }
+
+                .customer-info-new {
+                    width: 100%;
+                    text-align: center;
+                }
+
+                .customer-name-new {
+                    justify-content: center;
+                }
+
+                .customer-meta {
+                    justify-content: center;
+                }
+
+                .customer-total-value {
+                    justify-content: center;
+                    margin-top: 10px;
+                }
+
+                .customer-summary {
+                    padding: 18px 20px;
+                    margin-top: 25px;
+                }
             }
 
-            /* Slide 8: Sản phẩm nổi bật */
             /* Slide 8: Sản phẩm nổi bật */
             .slide-8 {
                 background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -1414,7 +1895,7 @@
                 grid-template-columns: repeat(2, 1fr); /* 2 cột trên desktop */
                 gap: 16px;
                 max-width: 1000px; /* Tăng width để chứa 2 cột */
-                margin: 0 auto;
+                margin: 0 auto 40px;
             }
 
             .product-item {
@@ -1509,7 +1990,7 @@
                 flex-direction: column;
                 gap: 12px;
                 max-width: 700px;
-                margin: 0 auto;
+                margin: 0 auto 40px;
             }
 
             .product-value-item {
@@ -2431,20 +2912,7 @@
                 <p class="label">Hóa đơn điện tử được xử lý trong năm 2025</p>
 
                 <!-- THÊM DÒNG MỚI VỀ XẾP HẠNG -->
-                <div
-                    class="ranking-info"
-                    style="
-                        margin-top: 10px;
-                        background: rgba(255, 255, 255, 0.15);
-                        backdrop-filter: blur(10px);
-                        padding: 18px 30px;
-                        border-radius: 25px;
-                        border: 2px solid rgba(255, 255, 255, 0.25);
-                        max-width: 600px;
-                        margin-left: auto;
-                        margin-right: auto;
-                    "
-                >
+                <div class="ranking-info">
                     <p
                         style="
                             font-size: 1.3rem;
@@ -2614,7 +3082,6 @@
                                 xmlns="http://www.w3.org/2000/svg"
                             >
                                 <circle cx="50" cy="50" r="40" fill="#fff" />
-                                <circle cx="50" cy="50" r="25" fill="#e74c3c" />
                                 <circle cx="50" cy="50" r="12" fill="#fff" />
                                 <text
                                     x="50"
@@ -2666,18 +3133,6 @@
                                 >
                                     %
                                 </text>
-                                <path
-                                    d="M30 30 L70 70"
-                                    stroke="#ffd93d"
-                                    stroke-width="5"
-                                    stroke-linecap="round"
-                                />
-                                <path
-                                    d="M70 30 L30 70"
-                                    stroke="#ffd93d"
-                                    stroke-width="5"
-                                    stroke-linecap="round"
-                                />
                             </svg>
                         </div>
                         <div
@@ -3085,7 +3540,10 @@
                         </div>
                     </div>
                 </div>
-                <p class="subtitle" style="margin-top: 30px">
+                <p
+                    class="subtitle"
+                    style="margin-top: 30px; margin-bottom: 40px"
+                >
                     Những khoảnh khắc đáng nhớ trong hành trình của bạn!
                 </p>
             </div>
@@ -3093,99 +3551,66 @@
 
         <!-- Slide 6: Top Invoices -->
         <div class="slide slide-6" data-slide="6">
-            <!-- Particles giữ nguyên -->
+            <!-- Particles -->
             <div class="particles">
-                <div
-                    class="particle"
-                    style="
-                        left: 10%;
-                        animation-delay: 0s;
-                        animation-duration: 12s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 25%;
-                        animation-delay: 2s;
-                        animation-duration: 10s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 40%;
-                        animation-delay: 4s;
-                        animation-duration: 14s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 60%;
-                        animation-delay: 1s;
-                        animation-duration: 11s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 75%;
-                        animation-delay: 3s;
-                        animation-duration: 13s;
-                    "
-                ></div>
-                <div
-                    class="particle"
-                    style="
-                        left: 85%;
-                        animation-delay: 5s;
-                        animation-duration: 9s;
-                    "
-                ></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
             </div>
 
             <div class="container">
-                <h2 style="margin: 30px auto 30px auto">
-                    Hóa đơn giá trị cao nhất
-                </h2>
-                <p class="subtitle" style="margin-bottom: 35px">
-                    🏆 Hoá đơn của bạn đứng
-                    <strong
-                        style="
-                            font-size: 1.3em;
-                            font-weight: 900;
-                            /*color: #7042af;*/
-                            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-                            padding: 2px 8px;
-                            border-radius: 6px;
-                            /*background: linear-gradient(
-                                135deg,
-                                #fee2f0 0%,
-                                #b7a0fb 100%
-                            );*/
-                            background: #e8ac08;
-                            display: inline-block;
-                            transform: scale(1.05);
-                            margin: 0 10px 0 10px;
-                        "
-                        >Top 65</strong
-                    >
-                    về giá trị hóa đơn trên hệ thống EasyInvoice
-                </p>
+                <div class="slide6-header">
+                    <h2 class="slide6-title">🏆 Hóa đơn giá trị cao nhất</h2>
+                    <div class="ranking-info">
+                        <p class="ranking-text">
+                            Doanh nghiệp của bạn đứng
+                            <span class="ranking-badge">Top 65</span>
+                            <br />về giá trị hóa đơn trên hệ thống EasyInvoice
+                        </p>
+                    </div>
+                </div>
 
-                <div class="invoice-list">
-                    <div class="invoice-item visible">
-                        <div class="invoice-rank">🥇 #1</div>
-                        <div class="invoice-details">
-                            <div class="invoice-header">
-                                <span class="invoice-series">01GTKT0/001</span>
-                                <span class="invoice-number">0000123</span>
+                <div class="invoice-showcase">
+                    <!-- Trophy decoration -->
+                    <div class="trophy-decoration">🏆</div>
+
+                    <!-- Invoice header -->
+                    <div class="invoice-header">
+                        <div class="invoice-title-section">
+                            <div class="medal-icon">🥇</div>
+                            <div>
+                                <div class="invoice-label">
+                                    Ký hiệu - Mẫu số
+                                </div>
+                                <div class="invoice-numbers">
+                                    <span class="invoice-code"
+                                        >01GTKT0/001</span
+                                    >
+                                    <span class="invoice-number">0000123</span>
+                                </div>
                             </div>
-                            <div class="invoice-customer">Công ty TNHH ABC</div>
-                            <div class="invoice-value">8.500.000.000 VNĐ</div>
                         </div>
                     </div>
+
+                    <!-- Customer info -->
+                    <div class="customer-info">
+                        <div class="info-label">Người mua</div>
+                        <div class="customer-name">Công ty TNHH ABC</div>
+                    </div>
+
+                    <!-- Value showcase -->
+                    <div class="value-showcase">
+                        <div class="value-label">Giá trị hóa đơn</div>
+                        <div class="value-amount">8.500.000.000</div>
+                        <div class="value-currency">VNĐ</div>
+                    </div>
+
+                    <!-- Sparkle effects -->
+                    <div class="sparkle sparkle-1">✨</div>
+                    <div class="sparkle sparkle-2">⭐</div>
                 </div>
             </div>
         </div>
@@ -3246,136 +3671,170 @@
 
             <div class="container">
                 <h2>Những người đồng hành quan trọng nhất</h2>
-                <p class="subtitle">
-                    "Khách hàng không chỉ là con số - họ là câu chuyện thành
-                    công của chúng ta"
-                </p>
-                <div class="customer-list">
-                    <div class="customer-item">
-                        <span class="customer-rank">#1</span>
-                        <div class="customer-avatar" style="position: relative">
-                            <!-- Ảnh vương miện nhỏ trên avatar -->
-                            <div class="crown-badge">
-                                <img
-                                    src="./assets/images/yellow-crown-shiny-flat-colours.png"
-                                    alt="Vương miện"
-                                    class="crown-image"
-                                />
-                            </div>
-                            <svg
-                                viewBox="0 0 24 24"
-                                fill="#667eea"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path d="M12 2L2 7L12 12L22 7L12 2Z" />
-                                <path d="M2 17L12 22L22 17" />
-                                <path d="M2 12L12 17L22 12" />
-                            </svg>
-                        </div>
-                        <!-- Tên Công ty / doanh nghiệp -->
-                        <div class="customer-info">
-                            <div
-                                class="customer-name"
-                                style="position: relative"
-                            >
+
+                <!-- Thêm thông tin tổng kết -->
+                <div
+                    class="customer-summary"
+                    style="
+                        margin-bottom: 30px;
+                        /*background: rgba(255, 255, 255, 0.15);*/
+                        /*backdrop-filter: blur(10px);*/
+                        /*border-radius: 20px;*/
+                        /*padding: 25px 30px;*/
+                        text-align: center;
+                        /*border: 2px solid rgba(255, 255, 255, 0.25);*/
+                    "
+                >
+                    <p
+                        style="
+                            font-size: 1.1rem;
+                            color: white;
+                            margin: 0;
+                            line-height: 1.6;
+                        "
+                    >
+                        <span style="font-weight: 700; color: #ffd93d"
+                            >Top 5 khách hàng</span
+                        >
+                        đã đóng góp
+                        <span style="font-weight: 700; color: #ffd93d"
+                            >51.5 tỷ VNĐ</span
+                        >
+                        vào tổng doanh thu năm 2025, chiếm
+                        <span style="font-weight: 700; color: #ffd93d"
+                            >31%</span
+                        >
+                        tổng giá trị giao dịch
+                    </p>
+                </div>
+
+                <div class="top-customer-list">
+                    <!-- Top 1 -->
+                    <div class="top-customer-item visible top-customer-gold">
+                        <div class="customer-rank-new">🥇 #1</div>
+                        <div class="customer-info-new">
+                            <div class="customer-name-new">
                                 Công ty TNHH ABC
+                                <span class="crown-icon-inline">👑</span>
                             </div>
-                            <div class="customer-count">342 hóa đơn</div>
+                            <div class="customer-meta">
+                                <span class="customer-taxcode"
+                                    >MST: 0101234567</span
+                                >
+                                <span class="value-separator">•</span>
+                                <span class="customer-invoice-count"
+                                    >342 hóa đơn</span
+                                >
+                            </div>
+                            <div class="customer-total-value">
+                                <span class="value-label">Tổng giá trị:</span>
+                                <span class="value-amount">15.8 tỷ VNĐ</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="customer-item">
-                        <span class="customer-rank">#2</span>
-                        <div class="customer-avatar">
-                            <svg
-                                viewBox="0 0 24 24"
-                                fill="#764ba2"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <rect
-                                    x="3"
-                                    y="3"
-                                    width="18"
-                                    height="18"
-                                    rx="2"
-                                />
-                                <path
-                                    d="M7 7H17M7 12H17M7 17H13"
-                                    stroke="#fff"
-                                    stroke-width="2"
-                                />
-                            </svg>
-                        </div>
-                        <div class="customer-info">
-                            <div class="customer-name">Tập đoàn XYZ</div>
-                            <div class="customer-count">287 hóa đơn</div>
+
+                    <!-- Top 2 -->
+                    <div class="top-customer-item visible top-customer-silver">
+                        <div class="customer-rank-new">🥈 #2</div>
+                        <div class="customer-info-new">
+                            <div class="customer-name-new">
+                                Tập đoàn XYZ Việt Nam
+                                <span class="star-icon-inline">⭐</span>
+                            </div>
+                            <div class="customer-meta">
+                                <span class="customer-taxcode"
+                                    >MST: 0102345678</span
+                                >
+                                <span class="value-separator">•</span>
+                                <span class="customer-invoice-count"
+                                    >287 hóa đơn</span
+                                >
+                            </div>
+                            <div class="customer-total-value">
+                                <span class="value-label">Tổng giá trị:</span>
+                                <span class="value-amount">12.3 tỷ VNĐ</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="customer-item">
-                        <span class="customer-rank">#3</span>
-                        <div class="customer-avatar">
-                            <svg
-                                viewBox="0 0 24 24"
-                                fill="#f093fb"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <circle cx="12" cy="8" r="4" />
-                                <path
-                                    d="M6 21V19C6 16.79 7.79 15 10 15H14C16.21 15 18 16.79 18 19V21"
-                                />
-                            </svg>
-                        </div>
-                        <div class="customer-info">
-                            <div class="customer-name">Doanh nghiệp DEF</div>
-                            <div class="customer-count">213 hóa đơn</div>
-                        </div>
-                    </div>
-                    <div class="customer-item">
-                        <span class="customer-rank">#4</span>
-                        <div class="customer-avatar">
-                            <svg
-                                viewBox="0 0 24 24"
-                                fill="#4facfe"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M21 16V8C21 6.9 20.1 6 19 6H5C3.9 6 3 6.9 3 8V16C3 17.1 3.9 18 5 18H19C20.1 18 21 17.1 21 16Z"
-                                />
-                                <path
-                                    d="M12 12C13.1 12 14 11.1 14 10C14 8.9 13.1 8 12 8C10.9 8 10 8.9 10 10C10 11.1 10.9 12 12 12Z"
-                                    fill="#fff"
-                                />
-                            </svg>
-                        </div>
-                        <div class="customer-info">
-                            <div class="customer-name">Công ty GHI</div>
-                            <div class="customer-count">198 hóa đơn</div>
+
+                    <!-- Top 3 -->
+                    <div class="top-customer-item visible top-customer-bronze">
+                        <div class="customer-rank-new">🥉 #3</div>
+                        <div class="customer-info-new">
+                            <div class="customer-name-new">
+                                Công ty Cổ phần DEF Technology
+                                <span class="trophy-icon-inline">🏆</span>
+                            </div>
+                            <div class="customer-meta">
+                                <span class="customer-taxcode"
+                                    >MST: 0103456789</span
+                                >
+                                <span class="value-separator">•</span>
+                                <span class="customer-invoice-count"
+                                    >231 hóa đơn</span
+                                >
+                            </div>
+                            <div class="customer-total-value">
+                                <span class="value-label">Tổng giá trị:</span>
+                                <span class="value-amount">9.7 tỷ VNĐ</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="customer-item">
-                        <span class="customer-rank">#5</span>
-                        <div class="customer-avatar">
-                            <svg
-                                viewBox="0 0 24 24"
-                                fill="#43e97b"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z"
-                                />
-                                <path
-                                    d="M12 7V17M7 12H17"
-                                    stroke="#fff"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                />
-                            </svg>
+
+                    <!-- Top 4 -->
+                    <div class="top-customer-item visible">
+                        <div class="customer-rank-new">4</div>
+                        <div class="customer-info-new">
+                            <div class="customer-name-new">
+                                Công ty TNHH Thương mại GHI
+                            </div>
+                            <div class="customer-meta">
+                                <span class="customer-taxcode"
+                                    >MST: 0104567890</span
+                                >
+                                <span class="value-separator">•</span>
+                                <span class="customer-invoice-count"
+                                    >198 hóa đơn</span
+                                >
+                            </div>
+                            <div class="customer-total-value">
+                                <span class="value-label">Tổng giá trị:</span>
+                                <span class="value-amount">7.5 tỷ VNĐ</span>
+                            </div>
                         </div>
-                        <div class="customer-info">
-                            <div class="customer-name">Tổng công ty JKL</div>
-                            <div class="customer-count">176 hóa đơn</div>
+                    </div>
+
+                    <!-- Top 5 -->
+                    <div class="top-customer-item visible">
+                        <div class="customer-rank-new">5</div>
+                        <div class="customer-info-new">
+                            <div class="customer-name-new">
+                                Doanh nghiệp Tư nhân JKL
+                            </div>
+                            <div class="customer-meta">
+                                <span class="customer-taxcode"
+                                    >MST: 0105678901</span
+                                >
+                                <span class="value-separator">•</span>
+                                <span class="customer-invoice-count"
+                                    >176 hóa đơn</span
+                                >
+                            </div>
+                            <div class="customer-total-value">
+                                <span class="value-label">Tổng giá trị:</span>
+                                <span class="value-amount">6.2 tỷ VNĐ</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <p
+                    class="subtitle"
+                    style="margin-top: 30px; margin-bottom: 40px"
+                >
+                    "Khách hàng không chỉ là con số - họ là câu chuyện thành
+                    công của chúng ta"
+                </p>
             </div>
         </div>
 
